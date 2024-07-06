@@ -86,9 +86,9 @@ class LineFollower(Node):
       # print(err)
       self.get_logger().info("旋转角度：%s" % (err))
       # print(M)
-      self.twist.linear.x = 0.2
-      if(abs(err)>10):
-        self.twist.angular.z = -float(err) / 100
+      self.twist.linear.x = 0.5
+      if(abs(err)>5):
+        self.twist.angular.z = -float(err) / 90
       #   self.angleBuffer.append(err)
       # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
