@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import rclpy, cv2, numpy
-from sensor_msgs.msg import Image, CameraInfo
+from sensor_msgs.msg import Image, CompressedImage,CameraInfo
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
 from cv_bridge import CvBridge, CvBridgeError
+from rclpy.qos import QoSProfile
 import math
 bridge = CvBridge()  # 转换为ros2的消息类型(imgmsg)的工具
 import numpy as np
@@ -11,7 +12,7 @@ import numpy as np
 class LineFollower(Node):
   def __init__(self):
     super().__init__('line_follow')
-    self.image_sub = self.create_subscription(Image, '/oakd/rgb/preview/image_raw', self.image_callback, 10)
+    self.image_sub = self.create_subscription(CompressedImage, '/image_raw/compressed', self.image_callback, QoSProfile(depth=1))
     #self.image_sub = self.create_subscription(Image, '/image_raw', self.image_callback, 10)
     self.image_sub
     self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 5)
@@ -62,7 +63,9 @@ class LineFollower(Node):
 
   def image_callback(self, msg):
     global bridge
-    image = bridge.imgmsg_to_cv2(msg, 'bgr8')
+    np_arr = np.frombuffer(msg.data,np.uint8) 
+    image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+    #image = bridge.imgmsg_to_cv2(msg, 'bgr8')
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     self.colorLower = (self.h_min, self.s_min, self.v_min)
     self.colorUpper = (self.h_max, self.s_max, self.v_max)
