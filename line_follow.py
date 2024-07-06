@@ -12,7 +12,7 @@ import numpy as np
 class LineFollower(Node):
   def __init__(self):
     super().__init__('line_follow')
-    self.image_sub = self.create_subscription(CompressedImage, '/image_raw/compressed', self.image_callback, QoSProfile(depth=1))
+    self.image_sub = self.create_subscription(CompressedImage, '/oakd/rgb/preview/image_raw/compressed', self.image_callback, QoSProfile(depth=1))
     #self.image_sub = self.create_subscription(Image, '/image_raw', self.image_callback, 10)
     self.image_sub
     self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 5)
@@ -21,7 +21,7 @@ class LineFollower(Node):
     self.colorLower = None
     self.colorUpper = None
     self.declare_parameter("~h_min", 20)
-    self.declare_parameter("~h_max", 35)
+    self.declare_parameter("~h_max", 50)
     self.declare_parameter("~s_min", 100)
     self.declare_parameter("~s_max", 255)
     self.declare_parameter("~v_min", 80)
@@ -64,7 +64,8 @@ class LineFollower(Node):
   def image_callback(self, msg):
     global bridge
     np_arr = np.frombuffer(msg.data,np.uint8) 
-    image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+    self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+    image = np.copy(self.cv_image)
     #image = bridge.imgmsg_to_cv2(msg, 'bgr8')
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     self.colorLower = (self.h_min, self.s_min, self.v_min)
