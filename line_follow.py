@@ -22,11 +22,14 @@ class LineFollower(Node):
     self.colorUpper = None
     self.declare_parameter("~h_min", 20)
     self.declare_parameter("~h_max", 50)
-    self.declare_parameter("~s_min", 100)
+    self.declare_parameter("~s_min", 50)
     self.declare_parameter("~s_max", 255)
     self.declare_parameter("~v_min", 80)
     self.declare_parameter("~v_max", 255)
     self.declare_parameter("~run", 0)
+    self.declare_parameter("~x_speed_10", 5)
+    self.declare_parameter("~err_grenze", 5)
+    self.declare_parameter("~z_speed", 90)
     self.h_min = self.get_parameter("~h_min").get_parameter_value().integer_value
     self.h_max = self.get_parameter("~h_max").get_parameter_value().integer_value
     self.s_min = self.get_parameter("~s_min").get_parameter_value().integer_value
@@ -34,6 +37,9 @@ class LineFollower(Node):
     self.v_min = self.get_parameter("~v_min").get_parameter_value().integer_value
     self.v_max = self.get_parameter("~v_max").get_parameter_value().integer_value
     self.run = self.get_parameter("~run").get_parameter_value().integer_value
+    self.x_speed_10 = self.get_parameter("~x_speed_10").get_parameter_value().integer_value
+    self.err_grenze = self.get_parameter("~err_grenze").get_parameter_value().integer_value
+    self.z_speed = self.get_parameter("~z_speed").get_parameter_value().integer_value
     cv2.namedWindow("Parameters")
     #cv2.resizeWindow("Parameters", 640, 320);
     cv2.moveWindow("Parameters",20,20)
@@ -44,6 +50,10 @@ class LineFollower(Node):
     cv2.createTrackbar("v_min", "Parameters", self.v_min, 255, self.set_v_min)
     cv2.createTrackbar("v_max", "Parameters", self.v_max, 255, self.set_v_max)
     cv2.createTrackbar("run", "Parameters", self.run, 1, self.set_run)
+    cv2.createTrackbar("x_speed_10", "Parameters", self.x_speed_10, 10, self.set_x_speed_10)
+    cv2.createTrackbar("err_grenze", "Parameters", self.err_grenze, 10, self.set_err_grenze)
+    cv2.createTrackbar("z_speed", "Parameters", self.z_speed , 200, self.set_z_speed)
+
 
 
   def set_h_min(self, pos):
@@ -60,6 +70,12 @@ class LineFollower(Node):
     self.v_max = pos
   def set_run(self, pos):
     self.run = pos
+  def set_x_speed_10(self, pos):
+    self.x_speed_10 = pos
+  def set_err_grenze(self, pos):
+    self.err_grenze = pos
+  def set_z_speed(self, pos):
+    self.z_speed = pos
 
   def image_callback(self, msg):
     global bridge
@@ -86,9 +102,9 @@ class LineFollower(Node):
       # print(err)
       self.get_logger().info("旋转角度：%s" % (err))
       # print(M)
-      self.twist.linear.x = 0.5
-      if(abs(err)>5):
-        self.twist.angular.z = -float(err) / 90
+      self.twist.linear.x = float(self.x_speed_10)/10
+      if(abs(err)>self.err_grenze):
+        self.twist.angular.z = -float(err) / self.z_speed
       #   self.angleBuffer.append(err)
       # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
