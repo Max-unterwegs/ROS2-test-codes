@@ -2,6 +2,7 @@
 import rclpy, cv2, numpy
 from sensor_msgs.msg import Image, CompressedImage,CameraInfo
 from geometry_msgs.msg import Twist
+from std_msgs.msg import UInt8, Float64
 from rclpy.node import Node
 from cv_bridge import CvBridge, CvBridgeError
 from rclpy.qos import QoSProfile
@@ -13,11 +14,12 @@ class LineFollower(Node):
   def __init__(self):
     super().__init__('line_follow')
     self.image_sub = self.create_subscription(CompressedImage, '/oakd/rgb/preview/image_raw/compressed', self.image_callback, QoSProfile(depth=1))
-    #self.image_sub = self.create_subscription(Image, '/image_raw', self.image_callback, 10)
+    #self.image_sub = self.create_subscription(Image, '/image_raw', self.image_callback, 10)s 
     self.image_sub
     self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 5)
     self.twist = Twist()
     self.angleBuffer = []
+    self.maxmax = 0.0
     self.colorLower = None
     self.colorUpper = None
     self.declare_parameter("~h_min", 20)
@@ -59,7 +61,11 @@ class LineFollower(Node):
     cv2.createTrackbar("z_speed", "Parameters", self.z_speed , 200, self.set_z_speed)
     cv2.createTrackbar("zwx_10", "Parameters", self.zwx_10 , 10, self.set_zwx_10)
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
-
+    self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
+  def con_run(self, msg):
+    self.get_logger().info("12345678%lf" %(self.maxmax))
+    self.maxmax = msg.data #速度 
+    self.get_logger().info("45567!%lf" %(self.maxmax))
 
   def set_h_min(self, pos):
     self.h_min = pos
@@ -111,13 +117,17 @@ class LineFollower(Node):
       self.get_logger().info("旋转角度：%s" % (err))
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
-      if(abs(err)>self.err_grenze):
-        self.twist.angular.z = -float(err) / self.z_speed
-      if(abs(err)>self.err_grenze_da):
-        self.twist.linear.x = float(self.zwx_10)/10
-      
-      #   self.angleBuffer.append(err)
-      # if len(self.angleBuffer) > 2:
+      self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
+      if(self.maxmax > 0.05):
+        if(abs(err)>self.err_grenze):
+          self.twist.angular.z = -float(err) / self.z_speed
+        if(abs(err)>self.err_grenze_da):
+         self.twist.linear.x = float(self.zwx_10)/10
+      else: 
+         self.twist.angular.z = 0.0
+         self.twist.linear.x = 0.0
+        #   self.angleBuffer.append(err)
+        # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
      #    self.angleBuffer.pop(0)
      #  else:
