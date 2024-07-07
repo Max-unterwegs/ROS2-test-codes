@@ -30,6 +30,8 @@ class LineFollower(Node):
     self.declare_parameter("~x_speed_10", 5)
     self.declare_parameter("~err_grenze", 5)
     self.declare_parameter("~z_speed", 90)
+    self.declare_parameter("~zwx_10", 5)
+    self.declare_parameter("~err_grenze_da", 7)
     self.h_min = self.get_parameter("~h_min").get_parameter_value().integer_value
     self.h_max = self.get_parameter("~h_max").get_parameter_value().integer_value
     self.s_min = self.get_parameter("~s_min").get_parameter_value().integer_value
@@ -40,6 +42,8 @@ class LineFollower(Node):
     self.x_speed_10 = self.get_parameter("~x_speed_10").get_parameter_value().integer_value
     self.err_grenze = self.get_parameter("~err_grenze").get_parameter_value().integer_value
     self.z_speed = self.get_parameter("~z_speed").get_parameter_value().integer_value
+    self.zwx_10 = self.get_parameter("~zwx_10").get_parameter_value().integer_value
+    self.err_grenze_da = self.get_parameter("~err_grenze_da").get_parameter_value().integer_value
     cv2.namedWindow("Parameters")
     #cv2.resizeWindow("Parameters", 640, 320);
     cv2.moveWindow("Parameters",20,20)
@@ -53,7 +57,8 @@ class LineFollower(Node):
     cv2.createTrackbar("x_speed_10", "Parameters", self.x_speed_10, 10, self.set_x_speed_10)
     cv2.createTrackbar("err_grenze", "Parameters", self.err_grenze, 10, self.set_err_grenze)
     cv2.createTrackbar("z_speed", "Parameters", self.z_speed , 200, self.set_z_speed)
-
+    cv2.createTrackbar("zwx_10", "Parameters", self.zwx_10 , 10, self.set_zwx_10)
+    cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
 
 
   def set_h_min(self, pos):
@@ -76,7 +81,10 @@ class LineFollower(Node):
     self.err_grenze = pos
   def set_z_speed(self, pos):
     self.z_speed = pos
-
+  def set_zwx_10(self, pos):
+     self.zwx_10=pos
+  def set_err_grenze_da(self, pos):
+    self.err_grenze_da=pos
   def image_callback(self, msg):
     global bridge
     np_arr = np.frombuffer(msg.data,np.uint8) 
@@ -105,6 +113,9 @@ class LineFollower(Node):
       self.twist.linear.x = float(self.x_speed_10)/10
       if(abs(err)>self.err_grenze):
         self.twist.angular.z = -float(err) / self.z_speed
+      if(abs(err)>self.err_grenze_da):
+        self.twist.linear.x = float(self.zwx_10)/10
+      
       #   self.angleBuffer.append(err)
       # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
