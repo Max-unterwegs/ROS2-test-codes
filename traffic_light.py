@@ -119,27 +119,49 @@ class DetectTrafficLight(Node):
         #    loop_rate.sleep()
 
     def cbGetDetectTrafficLightParam(self, config, level):
-        rospy.loginfo("[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to")
-        rospy.loginfo("hue_red_l : %d", config.hue_red_l)
-        rospy.loginfo("hue_red_h : %d", config.hue_red_h)
-        rospy.loginfo("saturation_red_l : %d", config.saturation_red_l)
-        rospy.loginfo("saturation_red_h : %d", config.saturation_red_h)
-        rospy.loginfo("lightness_red_l : %d", config.lightness_red_l)
-        rospy.loginfo("lightness_red_h : %d", config.lightness_red_h)
+        # rospy.loginfo("[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to")
+        # rospy.loginfo("hue_red_l : %d", config.hue_red_l)
+        # rospy.loginfo("hue_red_h : %d", config.hue_red_h)
+        # rospy.loginfo("saturation_red_l : %d", config.saturation_red_l)
+        # rospy.loginfo("saturation_red_h : %d", config.saturation_red_h)
+        # rospy.loginfo("lightness_red_l : %d", config.lightness_red_l)
+        # rospy.loginfo("lightness_red_h : %d", config.lightness_red_h)
 
-        rospy.loginfo("hue_yellow_l : %d", config.hue_yellow_l)
-        rospy.loginfo("hue_yellow_h : %d", config.hue_yellow_h)
-        rospy.loginfo("saturation_yellow_l : %d", config.saturation_yellow_l)
-        rospy.loginfo("saturation_yellow_h : %d", config.saturation_yellow_h)
-        rospy.loginfo("lightness_yellow_l : %d", config.lightness_yellow_l)
-        rospy.loginfo("lightness_yellow_h : %d", config.lightness_yellow_h)
+        # rospy.loginfo("hue_yellow_l : %d", config.hue_yellow_l)
+        # rospy.loginfo("hue_yellow_h : %d", config.hue_yellow_h)
+        # rospy.loginfo("saturation_yellow_l : %d", config.saturation_yellow_l)
+        # rospy.loginfo("saturation_yellow_h : %d", config.saturation_yellow_h)
+        # rospy.loginfo("lightness_yellow_l : %d", config.lightness_yellow_l)
+        # rospy.loginfo("lightness_yellow_h : %d", config.lightness_yellow_h)
 
-        rospy.loginfo("hue_green_l : %d", config.hue_green_l)
-        rospy.loginfo("hue_green_h : %d", config.hue_green_h)
-        rospy.loginfo("saturation_green_l : %d", config.saturation_green_l)
-        rospy.loginfo("saturation_green_h : %d", config.saturation_green_h)
-        rospy.loginfo("lightness_green_l : %d", config.lightness_green_l)
-        rospy.loginfo("lightness_green_h : %d", config.lightness_green_h)
+        # rospy.loginfo("hue_green_l : %d", config.hue_green_l)
+        # rospy.loginfo("hue_green_h : %d", config.hue_green_h)
+        # rospy.loginfo("saturation_green_l : %d", config.saturation_green_l)
+        # rospy.loginfo("saturation_green_h : %d", config.saturation_green_h)
+        # rospy.loginfo("lightness_green_l : %d", config.lightness_green_l)
+        # rospy.loginfo("lightness_green_h : %d", config.lightness_green_h)
+
+        self.get_logger().info('[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to')
+        self.get_logger().info(f'hue_red_l : {config.hue_red_l}')
+        self.get_logger().info(f'hue_red_h : {config.hue_red_h}')
+        self.get_logger().info(f'saturation_red_l : {config.saturation_red_l}')
+        self.get_logger().info(f'saturation_red_h : {config.saturation_red_h}')
+        self.get_logger().info(f'lightness_red_l : {config.lightness_red_l}')
+        self.get_logger().info(f'lightness_red_h : {config.lightness_red_h}')
+
+        self.get_logger().info(f'hue_yellow_l : {config.hue_yellow_l}')
+        self.get_logger().info(f'hue_yellow_h : {config.hue_yellow_h}')
+        self.get_logger().info(f'saturation_yellow_l : {config.saturation_yellow_l}')
+        self.get_logger().info(f'saturation_yellow_h : {config.saturation_yellow_h}')
+        self.get_logger().info(f'lightness_yellow_l : {config.lightness_yellow_l}')
+        self.get_logger().info(f'lightness_yellow_h : {config.lightness_yellow_h}')
+
+        self.get_logger().info(f'hue_green_l : {config.hue_green_l}')
+        self.get_logger().info(f'hue_green_h : {config.hue_green_h}')
+        self.get_logger().info(f'saturation_green_l : {config.saturation_green_l}')
+        self.get_logger().info(f'saturation_green_h : {config.saturation_green_h}')
+        self.get_logger().info(f'lightness_green_l : {config.lightness_green_l}')
+        self.get_logger().info(f'lightness_green_h : {config.lightness_green_h}')
 
         self.hue_red_l = config.hue_red_l
         self.hue_red_h = config.hue_red_h
@@ -422,8 +444,7 @@ class DetectTrafficLight(Node):
     def cbTrafficLightFinished(self, traffic_light_finished_msg):
         self.is_traffic_light_finished = True
 
-    def main(self):
-        rospy.spin()
+
 
 
 def main(args=None):
