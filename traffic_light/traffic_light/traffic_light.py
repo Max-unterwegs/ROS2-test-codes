@@ -210,7 +210,10 @@ class DetectTrafficLight(Node):
         #self.get_logger().info('[Detect Traffic Light] Find Traffic Light')
         cv_image_mask = self.fnMaskGreenTrafficLight()
         cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
-
+        # 定义膨胀核
+        kernel = np.ones((3,3),np.uint8)
+        # 执行膨胀操作
+        cv_image_mask = cv2.dilate(cv_image_mask, kernel, iterations=2)
         status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'green')
         #self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
