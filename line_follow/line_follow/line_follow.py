@@ -63,9 +63,9 @@ class LineFollower(Node):
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
   def con_run(self, msg):
-    self.get_logger().info("12345678%lf" %(self.maxmax))
+    #self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
-    self.get_logger().info("45567!%lf" %(self.maxmax))
+    #self.get_logger().info("45567!%lf" %(self.maxmax))
 
   def set_h_min(self, pos):
     self.h_min = pos
@@ -117,7 +117,7 @@ class LineFollower(Node):
       self.get_logger().info("旋转角度：%s" % (err))
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
-      self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
+      #self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
       if(self.maxmax > 0.05):
         if(abs(err)>self.err_grenze):
           self.twist.angular.z = -float(err) / self.z_speed

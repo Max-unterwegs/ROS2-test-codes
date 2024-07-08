@@ -14,7 +14,7 @@ from cv_bridge import CvBridge, CvBridgeError
 class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
-        self.get_logger().info('start detect traffic light node')
+        #self.get_logger().info('start detect traffic light node')
         self.declare_parameter("~detect/lane/red/hue_l", 0)
         self.declare_parameter("~detect/lane/red/hue_h", 255)
         self.declare_parameter("~detect/lane/red/saturation_l", 128)
@@ -64,21 +64,21 @@ class DetectTrafficLight(Node):
         self.pub_image_type = "compressed"          # "compressed" / "raw"
 
         self.counter = 1
-        self.get_logger().info('start create subscriber and publisher')
+        #self.get_logger().info('start create subscriber and publisher')
         if self.sub_image_type == "compressed":
             # subscribes compressed image
             self.sub_image_original = self.create_subscription(CompressedImage, '/oakd/rgb/preview/image_raw/compressed',  self.cbGetImage, QoSProfile(depth=1))
         elif self.sub_image_type == "raw":
             # subscribes raw image
             self.sub_image_original = self.create_subscription(Image, '/oakd/rgb/preview/image_raw', self.cbGetImage, QoSProfile(depth=1))
-        self.get_logger().info('start create publisher image')
+        #self.get_logger().info('start create publisher image')
         if self.pub_image_type == "compressed":
             # publishes compensated image in compressed type 
             self.pub_image_traffic_light = self.create_publisher(CompressedImage, '/detect/image_output/compressed',  QoSProfile(depth=1))
         elif self.pub_image_type == "raw":
             # publishes compensated image in raw type
             self.pub_image_traffic_light = self.create_publisher(Image, '/detect/image_output', QoSProfile(depth=1))
-        self.get_logger().info('start create publisher light')
+        #self.get_logger().info('start create publisher light')
         if self.is_calibration_mode == True:
             if self.pub_image_type == "compressed":
                 # publishes light image in compressed type 
@@ -90,7 +90,7 @@ class DetectTrafficLight(Node):
                 self.pub_image_red_light = self.create_publisher(Image, '/detect/image_output_sub1', QoSProfile(depth=1))
                 self.pub_image_yellow_light = self.create_publisher(Image, '/detect/image_output_sub2', QoSProfile(depth=1))
                 self.pub_image_green_light = self.create_publisher(Image, '/detect/image_output_sub3', QoSProfile(depth=1))
-        self.get_logger().info('start create subscriber and publisher 2')
+        #self.get_logger().info('start create subscriber and publisher 2')
         self.sub_traffic_light_finished = self.create_subscription(UInt8, '/control/traffic_light_finished',  self.cbTrafficLightFinished, QoSProfile(depth=1))
         self.pub_traffic_light_return = self.create_publisher(UInt8, '/detect/traffic_light_stamped', QoSProfile(depth=1))
         self.pub_parking_start = self.create_publisher(UInt8, '/control/traffic_light_start', QoSProfile(depth=1))
@@ -109,7 +109,7 @@ class DetectTrafficLight(Node):
         self.red_count = 0
         self.stop_count = 0
         self.off_traffic = False
-        self.get_logger().info('start create ende')
+        #self.get_logger().info('start create ende')
         #rospy.sleep(1)
 
         #loop_rate = rospy.Rate(10)
@@ -189,7 +189,7 @@ class DetectTrafficLight(Node):
 
 
     def cbGetImage(self, image_msg):
-        self.get_logger().info('[Detect Traffic Light] Image received')
+        #self.get_logger().info('[Detect Traffic Light] Image received')
         # drop the frame to 1/5 (6fps) because of the processing speed. This is up to your computer's operating power.
         if self.counter % 5 != 0:
             self.counter += 1
@@ -207,12 +207,12 @@ class DetectTrafficLight(Node):
         self.fnFindTrafficLight()
 
     def fnFindTrafficLight(self):
-        self.get_logger().info('[Detect Traffic Light] Find Traffic Light')
+        #self.get_logger().info('[Detect Traffic Light] Find Traffic Light')
         cv_image_mask = self.fnMaskGreenTrafficLight()
         cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
 
         status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'green')
-        #self.get_logger().info(str(status1))
+        self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
             self.stop_count = 0
             self.green_count += 1
@@ -243,7 +243,7 @@ class DetectTrafficLight(Node):
                     self.stop_count = 0
 
         if self.green_count > 20:
-            self.get_logger().info("11111111")
+            #self.get_logger().info("11111111")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.12
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -281,7 +281,7 @@ class DetectTrafficLight(Node):
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_imgmsg(self.cv_image, "bgr8"))
 
     def fnMaskRedTrafficLight(self):
-        self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
+        #self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -318,7 +318,7 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnMaskYellowTrafficLight(self):
-        self.get_logger().info('[Detect Traffic Light] Mask Yellow Traffic Light')
+        #self.get_logger().info('[Detect Traffic Light] Mask Yellow Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -355,7 +355,7 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnMaskGreenTrafficLight(self):
-        self.get_logger().info('[Detect Traffic Light] Mask Green Traffic Light')
+        #self.get_logger().info('[Detect Traffic Light] Mask Green Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -392,7 +392,7 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnFindCircleOfTrafficLight(self, mask, find_color):
-        self.get_logger().info('[Detect Traffic Light] Find Circle of Traffic Light')
+        #self.get_logger().info('[Detect Traffic Light] Find Circle of Traffic Light')
         status = 0
 
         params=cv2.SimpleBlobDetector_Params()
@@ -449,7 +449,7 @@ class DetectTrafficLight(Node):
         return status
 
     def cbTrafficLightFinished(self, traffic_light_finished_msg):
-        self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
+        #self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
         self.is_traffic_light_finished = True
 
 
