@@ -15,11 +15,11 @@ class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
         #self.get_logger().info('start detect traffic light node')
-        self.declare_parameter("~detect/lane/red/hue_l", 0)
+        self.declare_parameter("~detect/lane/red/hue_l", 139)
         self.declare_parameter("~detect/lane/red/hue_h", 255)
-        self.declare_parameter("~detect/lane/red/saturation_l", 128)
+        self.declare_parameter("~detect/lane/red/saturation_l", 86)
         self.declare_parameter("~detect/lane/red/saturation_h", 255)
-        self.declare_parameter("~detect/lane/red/lightness_l", 48)
+        self.declare_parameter("~detect/lane/red/lightness_l", 191)
         self.declare_parameter("~detect/lane/red/lightness_h", 255)
         self.hue_red_l = self.get_parameter('~detect/lane/red/hue_l').get_parameter_value().integer_value
         self.hue_red_h = self.get_parameter('~detect/lane/red/hue_h').get_parameter_value().integer_value
@@ -41,11 +41,11 @@ class DetectTrafficLight(Node):
         self.lightness_yellow_l = self.get_parameter('~detect/lane/yellow/lightness_l').get_parameter_value().integer_value
         self.lightness_yellow_h = self.get_parameter('~detect/lane/yellow/lightness_h').get_parameter_value().integer_value
         
-        self.declare_parameter("~detect/lane/green/hue_l", 35)
-        self.declare_parameter("~detect/lane/green/hue_h", 140)
-        self.declare_parameter("~detect/lane/green/saturation_l", 100)
+        self.declare_parameter("~detect/lane/green/hue_l", 43)
+        self.declare_parameter("~detect/lane/green/hue_h", 132)
+        self.declare_parameter("~detect/lane/green/saturation_l", 93)
         self.declare_parameter("~detect/lane/green/saturation_h", 255)
-        self.declare_parameter("~detect/lane/green/lightness_l", 100)
+        self.declare_parameter("~detect/lane/green/lightness_l", 224)
         self.declare_parameter("~detect/lane/green/lightness_h", 255)
         self.hue_green_l = self.get_parameter('~detect/lane/green/hue_l').get_parameter_value().integer_value
         self.hue_green_h = self.get_parameter('~detect/lane/green/hue_h').get_parameter_value().integer_value
