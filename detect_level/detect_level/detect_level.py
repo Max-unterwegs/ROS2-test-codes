@@ -98,7 +98,7 @@ class DetectLevel(Node):
         
         if self.sub_image_type == "compressed":
             # subscribes compressed image
-            self.sub_image_original = self.create_subscription(CompressedImage, '/image_raw/compressed', self.cbGetImage, QoSProfile(depth=1))
+            self.sub_image_original = self.create_subscription(CompressedImage, '/oakd/rgb/preview/image_raw/compressed', self.cbGetImage, QoSProfile(depth=1))
             self.sub_image_original
         elif self.sub_image_type == "raw":
             # subscribes raw image
@@ -182,13 +182,13 @@ class DetectLevel(Node):
         pub_level_crossing_return = UInt8()
 
         if order.data == self.StepOfLevelCrossing.searching_stop_sign.value:
-            rospy.loginfo("Now lane_following")
-
+            #rospy.loginfo("Now lane_following")
+            self.get_logger().info("Now lane_following")
             pub_level_crossing_return.data = self.StepOfLevelCrossing.searching_stop_sign.value
                                                             
         elif order.data == self.StepOfLevelCrossing.searching_level.value:
-            rospy.loginfo("Now searching_level")
-
+            #rospy.loginfo("Now searching_level")
+            self.get_logger().info("Now searching_level")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.10
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -200,16 +200,16 @@ class DetectLevel(Node):
                 else:
                     pass
             
-            rospy.loginfo("SLOWDOWN!!")
-
-            msg_pub_max_vel.data = 0.04
+            #rospy.loginfo("SLOWDOWN!!")
+            self.get_logger().info("SLOWDOWN!!")
+            msg_pub_max_vel.data = 0.10
             self.pub_max_vel.publish(msg_pub_max_vel)
 
             pub_level_crossing_return.data = self.StepOfLevelCrossing.searching_level.value
 
         elif order.data == self.StepOfLevelCrossing.watching_level.value:
-            rospy.loginfo("Now watching_level")
-
+            #rospy.loginfo("Now watching_level")
+            self.get_logger().info("Now watching_level")
             while True:
                 _, is_level_close, _ = self.fnFindLevel()
                 if is_level_close == True:
@@ -217,8 +217,8 @@ class DetectLevel(Node):
                 else:
                     pass
 
-            rospy.loginfo("STOP~~")
-
+            #rospy.loginfo("STOP~~")
+            self.get_logger().info("STOP~~")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.0
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -226,8 +226,8 @@ class DetectLevel(Node):
             pub_level_crossing_return.data = self.StepOfLevelCrossing.watching_level.value
 
         elif order.data == self.StepOfLevelCrossing.stop.value:
-            rospy.loginfo("Now stop")
-
+            #rospy.loginfo("Now stop")
+            self.get_logger().info("Now stop")
             while True:
                 _, _, is_level_opened = self.fnFindLevel()
                 if is_level_opened == True:
@@ -235,17 +235,17 @@ class DetectLevel(Node):
                 else:
                     pass
 
-            rospy.loginfo("GO~~")
-
+            #rospy.loginfo("GO~~")
+            self.get_logger().info("GO~~")
             msg_pub_max_vel = Float64()
-            msg_pub_max_vel.data = 0.04
+            msg_pub_max_vel.data = 0.10
             self.pub_max_vel.publish(msg_pub_max_vel)
 
             pub_level_crossing_return.data = self.StepOfLevelCrossing.stop.value
 
         elif order.data == self.StepOfLevelCrossing.pass_level.value:
-            rospy.loginfo("Now pass_level")
-
+            #rospy.loginfo("Now pass_level")
+            self.get_logger().info("Now pass_level")
             pub_level_crossing_return.data = self.StepOfLevelCrossing.pass_level.value
 
         self.pub_level_crossing_return.publish(pub_level_crossing_return)
@@ -399,9 +399,6 @@ class DetectLevel(Node):
 
     def cbLevelCrossingFinished(self, level_crossing_finished_msg):
         self.is_level_crossing_finished = True
-
-    def main(self):
-        rospy.spin()
 
 
 def main(args=None):
