@@ -212,7 +212,7 @@ class DetectTrafficLight(Node):
         cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
 
         status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'green')
-        self.get_logger().info(str(status1))
+        #self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
             self.stop_count = 0
             self.green_count += 1
@@ -232,7 +232,7 @@ class DetectTrafficLight(Node):
                 cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
 
                 status3 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'red')
-                self.get_logger().info(str(status3))
+                #self.get_logger().info(str(status3))
                 if status3 == 3:
                     self.red_count += 1
                 elif status3 == 4:
@@ -271,7 +271,11 @@ class DetectTrafficLight(Node):
             self.get_logger().info("STOP")
             self.off_traffic = True
             cv2.putText(self.cv_image,"STOP", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
-
+        # cv2.namedWindow("Parameters")
+        # #cv2.resizeWindow("Parameters", 640, 320);
+        # cv2.moveWindow("Parameters",20,20)
+        #cv2.imshow("traffic", self.cv_image)
+        #cv2.waitkey(3)
         if self.pub_image_type == "compressed":
             # publishes traffic light image in compressed type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_compressed_imgmsg(self.cv_image, "jpg"))
