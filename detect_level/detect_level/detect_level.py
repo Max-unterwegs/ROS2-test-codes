@@ -170,15 +170,19 @@ class DetectLevel(Node):
             return
         else:
             self.counter = 1
-        if self.sub_image_type == "compressed":
-            #np_arr = np.fromstring(image_msg.data, np.uint8)
-            np_arr = np.frombuffer(image_msg.data,np.uint8) 
-            self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-        else:
-            self.cv_image = self.cvBridge.imgmsg_to_cv2(image_msg, "bgr8")        
+        try:
+            if self.sub_image_type == "compressed":
+                np_arr = np.frombuffer(image_msg.data, np.uint8)
+                self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+            else:
+                self.cv_image = self.cvBridge.imgmsg_to_cv2(image_msg, "bgr8")        
+            self.fnFindLevel()
+        except Exception as e:
+            self.get_logger().error("Error processing image: %s", str(e))      
         self.fnFindLevel()
 
     def cbLevelCrossingOrder(self, order):
+        self.get_logger().info("Level Crossing Order : %d", order.data)
         pub_level_crossing_return = UInt8()
 
         if order.data == self.StepOfLevelCrossing.searching_stop_sign.value:
@@ -317,6 +321,7 @@ class DetectLevel(Node):
 
 
     def fnFindRectOfLevel(self, mask):
+        self.get_logger().info("fnFindRectOfLevel")
         is_level_detected = False
         is_level_close = False
         is_level_opened = False
@@ -394,7 +399,9 @@ class DetectLevel(Node):
         elif self.pub_image_type == "raw":
             # publishes level image in raw type
             self.pub_image_level.publish(self.cvBridge.cv2_to_imgmsg(frame, "bgr8"))
-
+        cv2.imshow("detcet2", frame)
+        cv2.waitKey(1)
+        self.get_logger().info("end fnfind")
         return is_level_detected, is_level_close, is_level_opened
 
     def cbLevelCrossingFinished(self, level_crossing_finished_msg):
