@@ -14,12 +14,12 @@ from cv_bridge import CvBridge, CvBridgeError
 class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
-        #self.get_logger().info('start detect traffic light node')
-        self.declare_parameter("~detect/lane/red/hue_l", 139)
+        
+        self.declare_parameter("~detect/lane/red/hue_l", 0)
         self.declare_parameter("~detect/lane/red/hue_h", 255)
-        self.declare_parameter("~detect/lane/red/saturation_l", 86)
+        self.declare_parameter("~detect/lane/red/saturation_l", 128)
         self.declare_parameter("~detect/lane/red/saturation_h", 255)
-        self.declare_parameter("~detect/lane/red/lightness_l", 191)
+        self.declare_parameter("~detect/lane/red/lightness_l", 48)
         self.declare_parameter("~detect/lane/red/lightness_h", 255)
         self.hue_red_l = self.get_parameter('~detect/lane/red/hue_l').get_parameter_value().integer_value
         self.hue_red_h = self.get_parameter('~detect/lane/red/hue_h').get_parameter_value().integer_value
@@ -41,11 +41,11 @@ class DetectTrafficLight(Node):
         self.lightness_yellow_l = self.get_parameter('~detect/lane/yellow/lightness_l').get_parameter_value().integer_value
         self.lightness_yellow_h = self.get_parameter('~detect/lane/yellow/lightness_h').get_parameter_value().integer_value
         
-        self.declare_parameter("~detect/lane/green/hue_l", 43)
-        self.declare_parameter("~detect/lane/green/hue_h", 132)
-        self.declare_parameter("~detect/lane/green/saturation_l", 93)
+        self.declare_parameter("~detect/lane/green/hue_l", 35)
+        self.declare_parameter("~detect/lane/green/hue_h", 105)
+        self.declare_parameter("~detect/lane/green/saturation_l", 102)
         self.declare_parameter("~detect/lane/green/saturation_h", 255)
-        self.declare_parameter("~detect/lane/green/lightness_l", 224)
+        self.declare_parameter("~detect/lane/green/lightness_l", 102)
         self.declare_parameter("~detect/lane/green/lightness_h", 255)
         self.hue_green_l = self.get_parameter('~detect/lane/green/hue_l').get_parameter_value().integer_value
         self.hue_green_h = self.get_parameter('~detect/lane/green/hue_h').get_parameter_value().integer_value
@@ -64,21 +64,21 @@ class DetectTrafficLight(Node):
         self.pub_image_type = "compressed"          # "compressed" / "raw"
 
         self.counter = 1
-        #self.get_logger().info('start create subscriber and publisher')
+        
         if self.sub_image_type == "compressed":
             # subscribes compressed image
             self.sub_image_original = self.create_subscription(CompressedImage, '/oakd/rgb/preview/image_raw/compressed',  self.cbGetImage, QoSProfile(depth=1))
         elif self.sub_image_type == "raw":
             # subscribes raw image
             self.sub_image_original = self.create_subscription(Image, '/oakd/rgb/preview/image_raw', self.cbGetImage, QoSProfile(depth=1))
-        #self.get_logger().info('start create publisher image')
+ 
         if self.pub_image_type == "compressed":
             # publishes compensated image in compressed type 
             self.pub_image_traffic_light = self.create_publisher(CompressedImage, '/detect/image_output/compressed',  QoSProfile(depth=1))
         elif self.pub_image_type == "raw":
             # publishes compensated image in raw type
             self.pub_image_traffic_light = self.create_publisher(Image, '/detect/image_output', QoSProfile(depth=1))
-        #self.get_logger().info('start create publisher light')
+
         if self.is_calibration_mode == True:
             if self.pub_image_type == "compressed":
                 # publishes light image in compressed type 
@@ -90,14 +90,14 @@ class DetectTrafficLight(Node):
                 self.pub_image_red_light = self.create_publisher(Image, '/detect/image_output_sub1', QoSProfile(depth=1))
                 self.pub_image_yellow_light = self.create_publisher(Image, '/detect/image_output_sub2', QoSProfile(depth=1))
                 self.pub_image_green_light = self.create_publisher(Image, '/detect/image_output_sub3', QoSProfile(depth=1))
-        #self.get_logger().info('start create subscriber and publisher 2')
+
         self.sub_traffic_light_finished = self.create_subscription(UInt8, '/control/traffic_light_finished',  self.cbTrafficLightFinished, QoSProfile(depth=1))
         self.pub_traffic_light_return = self.create_publisher(UInt8, '/detect/traffic_light_stamped', QoSProfile(depth=1))
         self.pub_parking_start = self.create_publisher(UInt8, '/control/traffic_light_start', QoSProfile(depth=1))
         self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
 
         self.StepOfTrafficLight = Enum('StepOfTrafficLight', 'searching_traffic_light searching_green_light searching_yellow_light searching_red_light waiting_green_light pass_traffic_light')
-        
+
         self.cvBridge = CvBridge()
         self.cv_image = None
 
@@ -109,7 +109,6 @@ class DetectTrafficLight(Node):
         self.red_count = 0
         self.stop_count = 0
         self.off_traffic = False
-        #self.get_logger().info('start create ende')
         #rospy.sleep(1)
 
         #loop_rate = rospy.Rate(10)
@@ -120,49 +119,27 @@ class DetectTrafficLight(Node):
         #    loop_rate.sleep()
 
     def cbGetDetectTrafficLightParam(self, config, level):
-        # rospy.loginfo("[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to")
-        # rospy.loginfo("hue_red_l : %d", config.hue_red_l)
-        # rospy.loginfo("hue_red_h : %d", config.hue_red_h)
-        # rospy.loginfo("saturation_red_l : %d", config.saturation_red_l)
-        # rospy.loginfo("saturation_red_h : %d", config.saturation_red_h)
-        # rospy.loginfo("lightness_red_l : %d", config.lightness_red_l)
-        # rospy.loginfo("lightness_red_h : %d", config.lightness_red_h)
+        rospy.loginfo("[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to")
+        rospy.loginfo("hue_red_l : %d", config.hue_red_l)
+        rospy.loginfo("hue_red_h : %d", config.hue_red_h)
+        rospy.loginfo("saturation_red_l : %d", config.saturation_red_l)
+        rospy.loginfo("saturation_red_h : %d", config.saturation_red_h)
+        rospy.loginfo("lightness_red_l : %d", config.lightness_red_l)
+        rospy.loginfo("lightness_red_h : %d", config.lightness_red_h)
 
-        # rospy.loginfo("hue_yellow_l : %d", config.hue_yellow_l)
-        # rospy.loginfo("hue_yellow_h : %d", config.hue_yellow_h)
-        # rospy.loginfo("saturation_yellow_l : %d", config.saturation_yellow_l)
-        # rospy.loginfo("saturation_yellow_h : %d", config.saturation_yellow_h)
-        # rospy.loginfo("lightness_yellow_l : %d", config.lightness_yellow_l)
-        # rospy.loginfo("lightness_yellow_h : %d", config.lightness_yellow_h)
+        rospy.loginfo("hue_yellow_l : %d", config.hue_yellow_l)
+        rospy.loginfo("hue_yellow_h : %d", config.hue_yellow_h)
+        rospy.loginfo("saturation_yellow_l : %d", config.saturation_yellow_l)
+        rospy.loginfo("saturation_yellow_h : %d", config.saturation_yellow_h)
+        rospy.loginfo("lightness_yellow_l : %d", config.lightness_yellow_l)
+        rospy.loginfo("lightness_yellow_h : %d", config.lightness_yellow_h)
 
-        # rospy.loginfo("hue_green_l : %d", config.hue_green_l)
-        # rospy.loginfo("hue_green_h : %d", config.hue_green_h)
-        # rospy.loginfo("saturation_green_l : %d", config.saturation_green_l)
-        # rospy.loginfo("saturation_green_h : %d", config.saturation_green_h)
-        # rospy.loginfo("lightness_green_l : %d", config.lightness_green_l)
-        # rospy.loginfo("lightness_green_h : %d", config.lightness_green_h)
-
-        self.get_logger().info('[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to')
-        self.get_logger().info(f'hue_red_l : {config.hue_red_l}')
-        self.get_logger().info(f'hue_red_h : {config.hue_red_h}')
-        self.get_logger().info(f'saturation_red_l : {config.saturation_red_l}')
-        self.get_logger().info(f'saturation_red_h : {config.saturation_red_h}')
-        self.get_logger().info(f'lightness_red_l : {config.lightness_red_l}')
-        self.get_logger().info(f'lightness_red_h : {config.lightness_red_h}')
-
-        self.get_logger().info(f'hue_yellow_l : {config.hue_yellow_l}')
-        self.get_logger().info(f'hue_yellow_h : {config.hue_yellow_h}')
-        self.get_logger().info(f'saturation_yellow_l : {config.saturation_yellow_l}')
-        self.get_logger().info(f'saturation_yellow_h : {config.saturation_yellow_h}')
-        self.get_logger().info(f'lightness_yellow_l : {config.lightness_yellow_l}')
-        self.get_logger().info(f'lightness_yellow_h : {config.lightness_yellow_h}')
-
-        self.get_logger().info(f'hue_green_l : {config.hue_green_l}')
-        self.get_logger().info(f'hue_green_h : {config.hue_green_h}')
-        self.get_logger().info(f'saturation_green_l : {config.saturation_green_l}')
-        self.get_logger().info(f'saturation_green_h : {config.saturation_green_h}')
-        self.get_logger().info(f'lightness_green_l : {config.lightness_green_l}')
-        self.get_logger().info(f'lightness_green_h : {config.lightness_green_h}')
+        rospy.loginfo("hue_green_l : %d", config.hue_green_l)
+        rospy.loginfo("hue_green_h : %d", config.hue_green_h)
+        rospy.loginfo("saturation_green_l : %d", config.saturation_green_l)
+        rospy.loginfo("saturation_green_h : %d", config.saturation_green_h)
+        rospy.loginfo("lightness_green_l : %d", config.lightness_green_l)
+        rospy.loginfo("lightness_green_h : %d", config.lightness_green_h)
 
         self.hue_red_l = config.hue_red_l
         self.hue_red_h = config.hue_red_h
@@ -189,7 +166,6 @@ class DetectTrafficLight(Node):
 
 
     def cbGetImage(self, image_msg):
-        #self.get_logger().info('[Detect Traffic Light] Image received')
         # drop the frame to 1/5 (6fps) because of the processing speed. This is up to your computer's operating power.
         if self.counter % 5 != 0:
             self.counter += 1
@@ -207,15 +183,11 @@ class DetectTrafficLight(Node):
         self.fnFindTrafficLight()
 
     def fnFindTrafficLight(self):
-        #self.get_logger().info('[Detect Traffic Light] Find Traffic Light')
         cv_image_mask = self.fnMaskGreenTrafficLight()
         cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
-        # # 定义膨胀核
-        # kernel = np.ones((3,3),np.uint8)
-        # # 执行膨胀操作
-        # cv_image_mask = cv2.dilate(cv_image_mask, kernel, iterations=2)
+
         status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'green')
-        #self.get_logger().info(str(status1))
+        self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
             self.stop_count = 0
             self.red_count = 0
@@ -253,6 +225,9 @@ class DetectTrafficLight(Node):
             msg_pub_max_vel.data = 0.12
             self.pub_max_vel.publish(msg_pub_max_vel)
             self.get_logger().info("GREEN")
+            start = UInt8()
+            start.data = 1
+            self.pub_parking_start.publish(start)
             cv2.putText(self.cv_image,"GREEN", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (80, 255, 0))
 
         if self.yellow_count > 12:
@@ -276,12 +251,11 @@ class DetectTrafficLight(Node):
             self.pub_max_vel.publish(msg_pub_max_vel)  
             self.get_logger().info("STOP")
             self.off_traffic = True
+            start = UInt8()
+            start.data = 0
+            self.pub_parking_start.publish(start)
             cv2.putText(self.cv_image,"STOP", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
-        # cv2.namedWindow("Parameters")
-        # #cv2.resizeWindow("Parameters", 640, 320);
-        # cv2.moveWindow("Parameters",20,20)
-        #cv2.imshow("traffic", self.cv_image)
-        #cv2.waitkey(3)
+
         if self.pub_image_type == "compressed":
             # publishes traffic light image in compressed type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_compressed_imgmsg(self.cv_image, "jpg"))
@@ -289,10 +263,8 @@ class DetectTrafficLight(Node):
         elif self.pub_image_type == "raw":
             # publishes traffic light image in raw type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_imgmsg(self.cv_image, "bgr8"))
-        self.display_image()
 
     def fnMaskRedTrafficLight(self):
-        #self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -329,7 +301,6 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnMaskYellowTrafficLight(self):
-        #self.get_logger().info('[Detect Traffic Light] Mask Yellow Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -366,7 +337,6 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnMaskGreenTrafficLight(self):
-        #self.get_logger().info('[Detect Traffic Light] Mask Green Traffic Light')
         image = np.copy(self.cv_image)
 
         # Convert BGR to HSV
@@ -403,7 +373,6 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnFindCircleOfTrafficLight(self, mask, find_color):
-        #self.get_logger().info('[Detect Traffic Light] Find Circle of Traffic Light')
         status = 0
 
         params=cv2.SimpleBlobDetector_Params()
@@ -461,19 +430,11 @@ class DetectTrafficLight(Node):
         return status
 
     def cbTrafficLightFinished(self, traffic_light_finished_msg):
-        #self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
         self.is_traffic_light_finished = True
 
-    def display_image(self):
-    # 确保cv2窗口不会阻止其他操作
-        cv2.namedWindow('Traffic Light Detection', cv2.WINDOW_NORMAL)
-        cv2.imshow('Traffic Light Detection', self.cv_image)
-        cv2.waitKey(3)  # 等待1毫秒，这允许刷新图像但不阻塞执行
-    # 如果你想在循环中显示图像并且希望用户能够关闭窗口，
-    # 你可能想要检查cv2.getWindowProperty()的返回值以确定窗口是否仍然打开。
-    # 这样做可以避免在用户关闭窗口后继续尝试更新窗口，从而引发错误。
-        # if cv2.getWindowProperty('Traffic Light Detection', cv2.WND_PROP_VISIBLE) < 1:
-        #     cv2.destroyWindow('Traffic Light Detection')
+    def main(self):
+        rospy.spin()
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -484,3 +445,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
