@@ -147,9 +147,23 @@ class DetectLevel(Node):
         self.is_level_crossing_finished = False
 
         self.counter = 1
-
+        self.add_on_set_parameters_callback(self.on_parameters_set)
         #self.create_timer(1.0 / 15, self.fnFindLevel)
-
+    def on_parameters_set(self, params):
+        for param in params:
+            if    param.name == '~detect/traffic_light/red/hue_l':
+                self.hue_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/hue_h':
+                self.hue_red_h = param.value
+            elif    param.name == '~detect/traffic_light/red/saturation_l':
+                self.saturation_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/saturation_h':
+                self.saturation_red_h = param.value
+            elif    param.name == '~detect/traffic_light/red/lightness_l':
+                self.lightness_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/lightness_h':
+                self.lightness_red_h = param.value
+        return SetParametersResult(successful=True)
     def cbGetDetectLevelParam(self, config, level):
         self.get_logger().info("[Detect Level] Detect Level Calibration Parameter reconfigured to")
         self.get_logger().info("hue_red_l : %d" % config.hue_red_l)

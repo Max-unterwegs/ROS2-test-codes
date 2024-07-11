@@ -64,7 +64,7 @@ class DetectTrafficLight(Node):
 
         self.declare_parameter("~is_detection_calibration_mode", True)
         self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
-        
+        self.add_on_set_parameters_callback(self.on_parameters_set)
         #if self.is_calibration_mode == True:
         #    srv_detect_lane = Server(DetectTrafficLightParamsConfig, self.cbGetDetectTrafficLightParam)
 
@@ -126,29 +126,48 @@ class DetectTrafficLight(Node):
         #        self.fnFindTrafficLight()
 
         #    loop_rate.sleep()
+    def on_parameters_set(self, params):
+        for param in params:
+            if param.name == '~detect/traffic_light/green/hue_l':
+                self.hue_green_l = param.value
+            elif    param.name == '~detect/traffic_light/green/hue_h':
+                self.hue_green_h = param.value
+            elif    param.name == '~detect/traffic_light/green/saturation_l':
+                self.saturation_green_l = param.value
+            elif    param.name == '~detect/traffic_light/green/saturation_h':
+                self.saturation_green_h = param.value
+            elif    param.name == '~detect/traffic_light/green/lightness_l':
+                self.lightness_green_l = param.value
+            elif    param.name == '~detect/traffic_light/green/lightness_h':
+                self.lightness_green_h = param.value
+            elif    param.name == '~detect/traffic_light/yellow/hue_l':
+                self.hue_yellow_l = param.value
+            elif    param.name == '~detect/traffic_light/yellow/hue_h':
+                self.hue_yellow_h = param.value
+            elif    param.name == '~detect/traffic_light/yellow/saturation_l':
+                self.saturation_yellow_l = param.value
+            elif    param.name == '~detect/traffic_light/yellow/saturation_h':
+                self.saturation_yellow_h = param.value
+            elif    param.name == '~detect/traffic_light/yellow/lightness_l':
+                self.lightness_yellow_l = param.value
+            elif    param.name == '~detect/traffic_light/yellow/lightness_h':
+                self.lightness_yellow_h = param.value
+            elif    param.name == '~detect/traffic_light/red/hue_l':
+                self.hue_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/hue_h':
+                self.hue_red_h = param.value
+            elif    param.name == '~detect/traffic_light/red/saturation_l':
+                self.saturation_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/saturation_h':
+                self.saturation_red_h = param.value
+            elif    param.name == '~detect/traffic_light/red/lightness_l':
+                self.lightness_red_l = param.value
+            elif    param.name == '~detect/traffic_light/red/lightness_h':
+                self.lightness_red_h = param.value
+        return SetParametersResult(successful=True)
 
     def cbGetDetectTrafficLightParam(self, config, level):
-        # rospy.loginfo("[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to")
-        # rospy.loginfo("hue_red_l : %d", config.hue_red_l)
-        # rospy.loginfo("hue_red_h : %d", config.hue_red_h)
-        # rospy.loginfo("saturation_red_l : %d", config.saturation_red_l)
-        # rospy.loginfo("saturation_red_h : %d", config.saturation_red_h)
-        # rospy.loginfo("lightness_red_l : %d", config.lightness_red_l)
-        # rospy.loginfo("lightness_red_h : %d", config.lightness_red_h)
-
-        # rospy.loginfo("hue_yellow_l : %d", config.hue_yellow_l)
-        # rospy.loginfo("hue_yellow_h : %d", config.hue_yellow_h)
-        # rospy.loginfo("saturation_yellow_l : %d", config.saturation_yellow_l)
-        # rospy.loginfo("saturation_yellow_h : %d", config.saturation_yellow_h)
-        # rospy.loginfo("lightness_yellow_l : %d", config.lightness_yellow_l)
-        # rospy.loginfo("lightness_yellow_h : %d", config.lightness_yellow_h)
-
-        # rospy.loginfo("hue_green_l : %d", config.hue_green_l)
-        # rospy.loginfo("hue_green_h : %d", config.hue_green_h)
-        # rospy.loginfo("saturation_green_l : %d", config.saturation_green_l)
-        # rospy.loginfo("saturation_green_h : %d", config.saturation_green_h)
-        # rospy.loginfo("lightness_green_l : %d", config.lightness_green_l)
-        # rospy.loginfo("lightness_green_h : %d", config.lightness_green_h)
+       
 
         self.get_logger().info('[Detect Traffic Light] Detect Traffic Light Calibration Parameter reconfigured to')
         self.get_logger().info(f'hue_red_l : {config.hue_red_l}')
