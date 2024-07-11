@@ -218,10 +218,7 @@ class DetectTrafficLight(Node):
         #self.get_logger().info('[Detect Traffic Light] Find Traffic Light')
         cv_image_mask = self.fnMaskGreenTrafficLight()
         cv_image_mask = cv2.GaussianBlur(cv_image_mask,(5,5),0)
-        # # 定义膨胀核
-        # kernel = np.ones((3,3),np.uint8)
-        # # 执行膨胀操作
-        # cv_image_mask = cv2.dilate(cv_image_mask, kernel, iterations=2)
+
         status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, 'green')
         #self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
@@ -285,11 +282,7 @@ class DetectTrafficLight(Node):
             self.get_logger().info("STOP")
             self.off_traffic = True
             cv2.putText(self.cv_image,"STOP", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
-        # cv2.namedWindow("Parameters")
-        # #cv2.resizeWindow("Parameters", 640, 320);
-        # cv2.moveWindow("Parameters",20,20)
-        #cv2.imshow("traffic", self.cv_image)
-        #cv2.waitkey(3)
+
         if self.pub_image_type == "compressed":
             # publishes traffic light image in compressed type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_compressed_imgmsg(self.cv_image, "jpg"))
@@ -297,7 +290,9 @@ class DetectTrafficLight(Node):
         elif self.pub_image_type == "raw":
             # publishes traffic light image in raw type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_imgmsg(self.cv_image, "bgr8"))
-        self.display_image()
+        cv2.imshow("Traffic", self.cv_image)
+        cv2.waitKey(1)
+     
 
     def fnMaskRedTrafficLight(self):
         #self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
@@ -472,16 +467,8 @@ class DetectTrafficLight(Node):
         #self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
         self.is_traffic_light_finished = True
 
-    def display_image(self):
-    # 确保cv2窗口不会阻止其他操作
-        cv2.namedWindow('Traffic Light Detection', cv2.WINDOW_NORMAL)
-        cv2.imshow('Traffic Light Detection', self.cv_image)
-        cv2.waitKey(3)  # 等待1毫秒，这允许刷新图像但不阻塞执行
-    # 如果你想在循环中显示图像并且希望用户能够关闭窗口，
-    # 你可能想要检查cv2.getWindowProperty()的返回值以确定窗口是否仍然打开。
-    # 这样做可以避免在用户关闭窗口后继续尝试更新窗口，从而引发错误。
-        # if cv2.getWindowProperty('Traffic Light Detection', cv2.WND_PROP_VISIBLE) < 1:
-        #     cv2.destroyWindow('Traffic Light Detection')
+
+
 
 def main(args=None):
     rclpy.init(args=args)

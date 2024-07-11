@@ -11,5 +11,9 @@ def generate_launch_description():             # 自动生成launch文件的函�
             package='traffic_light',          # 节点所在的功能包
             executable='traffic_light', # 节点的可执行文件名
         ),
+        Node(
+            package='detect_level',          # 节点所在的功能包
+            executable='detect_level', # 节点的可执行文件名
+        )
     ])
 

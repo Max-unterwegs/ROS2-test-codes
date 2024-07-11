@@ -20,6 +20,7 @@ class LineFollower(Node):
     self.twist = Twist()
     self.angleBuffer = []
     self.maxmax = 0.0
+    self.max_detect_level = 0.0
     self.colorLower = None
     self.colorUpper = None
     self.declare_parameter("~h_min", 20)
@@ -62,10 +63,14 @@ class LineFollower(Node):
     cv2.createTrackbar("zwx_10", "Parameters", self.zwx_10 , 10, self.set_zwx_10)
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
+    self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
   def con_run(self, msg):
-    #self.get_logger().info("12345678%lf" %(self.maxmax))
+    self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
-    #self.get_logger().info("45567!%lf" %(self.maxmax))
+    self.get_logger().info("45567!%lf" %(self.maxmax))
+  def con_detect_level_run(self, msg):
+    self.get_logger().info("detectlevel_vel:%lf" % (self.max_detect_level))
+    self.max_detect_level = msg.data
 
   def set_h_min(self, pos):
     self.h_min = pos
@@ -117,8 +122,8 @@ class LineFollower(Node):
       self.get_logger().info("旋转角度：%s" % (err))
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
-      #self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
-      if(self.maxmax > 0.05):
+      # self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
+      if(self.maxmax > 0.05 and self.max_detect_level> 0.05):
         if(abs(err)>self.err_grenze):
           self.twist.angular.z = -float(err) / self.z_speed
         if(abs(err)>self.err_grenze_da):
