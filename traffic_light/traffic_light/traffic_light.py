@@ -8,6 +8,7 @@ import numpy as np
 import cv2
 from enum import Enum
 from cv_bridge import CvBridge, CvBridgeError
+from rcl_interfaces.msg import ParameterDescriptor, ParameterType, IntegerRange, SetParametersResult
 #from dynamic_reconfigure.server import Server
 #from turtlebot3_autorace_detect.cfg import DetectTrafficLightParamsConfig
 
@@ -15,12 +16,19 @@ class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
         #self.get_logger().info('start detect traffic light node')
-        self.declare_parameter("~detect/lane/red/hue_l", 139)
-        self.declare_parameter("~detect/lane/red/hue_h", 255)
-        self.declare_parameter("~detect/lane/red/saturation_l", 86)
-        self.declare_parameter("~detect/lane/red/saturation_h", 255)
-        self.declare_parameter("~detect/lane/red/lightness_l", 191)
-        self.declare_parameter("~detect/lane/red/lightness_h", 255)
+        hsv_parameter_descriptor = ParameterDescriptor(
+                type=ParameterType.PARAMETER_INTEGER,
+                description='An integer parameter that can be adjusted using a slider.',
+                integer_range=[
+                    IntegerRange(from_value=0, to_value=255),
+                ]
+            )
+        self.declare_parameter("~detect/lane/red/hue_l", 139, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/hue_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/saturation_l", 86, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/saturation_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/lightness_l", 191, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_red_l = self.get_parameter('~detect/lane/red/hue_l').get_parameter_value().integer_value
         self.hue_red_h = self.get_parameter('~detect/lane/red/hue_h').get_parameter_value().integer_value
         self.saturation_red_l = self.get_parameter('~detect/lane/red/saturation_l').get_parameter_value().integer_value
@@ -28,12 +36,12 @@ class DetectTrafficLight(Node):
         self.lightness_red_l = self.get_parameter('~detect/lane/red/lightness_l').get_parameter_value().integer_value
         self.lightness_red_h = self.get_parameter('~detect/lane/red/lightness_h').get_parameter_value().integer_value
         
-        self.declare_parameter("~detect/lane/yellow/hue_l", 20)
-        self.declare_parameter("~detect/lane/yellow/hue_h", 35)
-        self.declare_parameter("~detect/lane/yellow/saturation_l", 100)
-        self.declare_parameter("~detect/lane/yellow/saturation_h", 255)
-        self.declare_parameter("~detect/lane/yellow/lightness_l", 50)
-        self.declare_parameter("~detect/lane/yellow/lightness_h", 255)
+        self.declare_parameter("~detect/lane/yellow/hue_l", 20, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/yellow/hue_h", 35, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/yellow/saturation_l", 100, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/yellow/saturation_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/yellow/lightness_l", 50, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/yellow/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_yellow_l = self.get_parameter('~detect/lane/yellow/hue_l').get_parameter_value().integer_value
         self.hue_yellow_h = self.get_parameter('~detect/lane/yellow/hue_h').get_parameter_value().integer_value
         self.saturation_yellow_l = self.get_parameter('~detect/lane/yellow/saturation_l').get_parameter_value().integer_value
@@ -41,12 +49,12 @@ class DetectTrafficLight(Node):
         self.lightness_yellow_l = self.get_parameter('~detect/lane/yellow/lightness_l').get_parameter_value().integer_value
         self.lightness_yellow_h = self.get_parameter('~detect/lane/yellow/lightness_h').get_parameter_value().integer_value
         
-        self.declare_parameter("~detect/lane/green/hue_l", 43)
-        self.declare_parameter("~detect/lane/green/hue_h", 132)
-        self.declare_parameter("~detect/lane/green/saturation_l", 93)
-        self.declare_parameter("~detect/lane/green/saturation_h", 255)
-        self.declare_parameter("~detect/lane/green/lightness_l", 224)
-        self.declare_parameter("~detect/lane/green/lightness_h", 255)
+        self.declare_parameter("~detect/lane/green/hue_l", 43, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/hue_h", 132, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/saturation_l", 93, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/saturation_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/lightness_l", 224, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_green_l = self.get_parameter('~detect/lane/green/hue_l').get_parameter_value().integer_value
         self.hue_green_h = self.get_parameter('~detect/lane/green/hue_h').get_parameter_value().integer_value
         self.saturation_green_l = self.get_parameter('~detect/lane/green/saturation_l').get_parameter_value().integer_value
