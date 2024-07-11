@@ -16,11 +16,12 @@ class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
         #self.get_logger().info('start detect traffic light node')
+        self.status = 1
         hsv_parameter_descriptor = ParameterDescriptor(
                 type=ParameterType.PARAMETER_INTEGER,
                 description='An integer parameter that can be adjusted using a slider.',
                 integer_range=[
-                    IntegerRange(from_value=0, to_value=255),
+                    IntegerRange(from_value=0, to_value=255, step=1),
                 ]
             )
         self.declare_parameter("~detect/lane/red/hue_l", 139, hsv_parameter_descriptor)

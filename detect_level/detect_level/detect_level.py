@@ -6,7 +6,7 @@ from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge
 import numpy as np
 import cv2
-
+from rcl_interfaces.msg import ParameterDescriptor, ParameterType, IntegerRange, SetParametersResult
 import math
 from enum import Enum
 from geometry_msgs.msg import Twist
@@ -72,13 +72,19 @@ def fnCheckDistanceIsEqual(point1, point2, point3):
 class DetectLevel(Node):
     def __init__(self):
         super().__init__('detect_level')
-                
-        self.declare_parameter("~detect/level/red/hue_l", 0)
-        self.declare_parameter("~detect/level/red/hue_h", 255)
-        self.declare_parameter("~detect/level/red/saturation_l", 128)
-        self.declare_parameter("~detect/level/red/saturation_h", 253)
-        self.declare_parameter("~detect/level/red/lightness_l", 68)
-        self.declare_parameter("~detect/level/red/lightness_h", 255)
+        hsv_parameter_descriptor = ParameterDescriptor(
+                type=ParameterType.PARAMETER_INTEGER,
+                description='An integer parameter that can be adjusted using a slider.',
+                integer_range=[
+                    IntegerRange(from_value=0, to_value=255, step=1),
+                ]
+            )
+        self.declare_parameter("~detect/level/red/hue_l", 0, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/hue_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/saturation_l", 128, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/saturation_h", 253, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/lightness_l", 68, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/lightness_h", 255, hsv_parameter_descriptor)
         self.declare_parameter("~is_detection_calibration_mode", True)
         self.hue_red_l = self.get_parameter('~detect/level/red/hue_l').get_parameter_value().integer_value
         self.hue_red_h = self.get_parameter('~detect/level/red/hue_h').get_parameter_value().integer_value
