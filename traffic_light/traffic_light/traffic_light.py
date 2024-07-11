@@ -64,7 +64,6 @@ class DetectTrafficLight(Node):
 
         self.declare_parameter("~is_detection_calibration_mode", True)
         self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
-        self.add_on_set_parameters_callback(self.on_parameters_set)
         #if self.is_calibration_mode == True:
         #    srv_detect_lane = Server(DetectTrafficLightParamsConfig, self.cbGetDetectTrafficLightParam)
 
@@ -117,6 +116,27 @@ class DetectTrafficLight(Node):
         self.red_count = 0
         self.stop_count = 0
         self.off_traffic = False
+        cv2.namedWindow('light')
+        cv2.createTrackbar('hue_red_l', 'light', self.hue_red_l, 255, self.set_red_h_min)
+        cv2.createTrackbar('hue_red_h', 'light', self.hue_red_h, 255, self.set_red_h_max)
+        cv2.createTrackbar('saturation_red_l', 'light', self.saturation_red_l, 255, self.set_red_s_min)
+        cv2.createTrackbar('saturation_red_h', 'light', self.saturation_red_h, 255, self.set_red_s_max)
+        cv2.createTrackbar('lightness_red_l', 'light', self.lightness_red_l, 255, self.set_red_v_min)
+        cv2.createTrackbar('lightness_red_h', 'light', self.lightness_red_h, 255, self.set_red_v_max)
+        cv2.createTrackbar('hue_yellow_l', 'light', self.hue_yellow_l, 255, self.set_yellow_h_min)
+        cv2.createTrackbar('hue_yellow_h', 'light', self.hue_yellow_h, 255, self.set_yellow_h_max)
+        cv2.createTrackbar('saturation_yellow_l', 'light', self.saturation_yellow_l, 255, self.set_yellow_s_min)
+        cv2.createTrackbar('saturation_yellow_h', 'light', self.saturation_yellow_h, 255, self.set_yellow_s_max)
+        cv2.createTrackbar('lightness_yellow_l', 'light', self.lightness_yellow_l, 255, self.set_yellow_v_min)
+        cv2.createTrackbar('lightness_yellow_h', 'light', self.lightness_yellow_h, 255, self.set_yellow_v_max)
+        cv2.createTrackbar('hue_green_l', 'light', self.hue_green_l, 255, self.set_green_h_min)
+        cv2.createTrackbar('hue_green_h', 'light', self.hue_green_h, 255, self.set_green_h_max)
+        cv2.createTrackbar('saturation_green_l', 'light', self.saturation_green_l, 255, self.set_green_s_min)
+        cv2.createTrackbar('saturation_green_h', 'light', self.saturation_green_h, 255, self.set_green_s_max)
+        cv2.createTrackbar('lightness_green_l', 'light', self.lightness_green_l, 255, self.set_green_v_min)
+        cv2.createTrackbar('lightness_green_h', 'light', self.lightness_green_h, 255, self.set_green_v_max)
+
+
         #self.get_logger().info('start create ende')
         #rospy.sleep(1)
 
@@ -126,45 +146,43 @@ class DetectTrafficLight(Node):
         #        self.fnFindTrafficLight()
 
         #    loop_rate.sleep()
-    def on_parameters_set(self, params):
-        for param in params:
-            if param.name == '~detect/traffic_light/green/hue_l':
-                self.hue_green_l = param.value
-            elif    param.name == '~detect/traffic_light/green/hue_h':
-                self.hue_green_h = param.value
-            elif    param.name == '~detect/traffic_light/green/saturation_l':
-                self.saturation_green_l = param.value
-            elif    param.name == '~detect/traffic_light/green/saturation_h':
-                self.saturation_green_h = param.value
-            elif    param.name == '~detect/traffic_light/green/lightness_l':
-                self.lightness_green_l = param.value
-            elif    param.name == '~detect/traffic_light/green/lightness_h':
-                self.lightness_green_h = param.value
-            elif    param.name == '~detect/traffic_light/yellow/hue_l':
-                self.hue_yellow_l = param.value
-            elif    param.name == '~detect/traffic_light/yellow/hue_h':
-                self.hue_yellow_h = param.value
-            elif    param.name == '~detect/traffic_light/yellow/saturation_l':
-                self.saturation_yellow_l = param.value
-            elif    param.name == '~detect/traffic_light/yellow/saturation_h':
-                self.saturation_yellow_h = param.value
-            elif    param.name == '~detect/traffic_light/yellow/lightness_l':
-                self.lightness_yellow_l = param.value
-            elif    param.name == '~detect/traffic_light/yellow/lightness_h':
-                self.lightness_yellow_h = param.value
-            elif    param.name == '~detect/traffic_light/red/hue_l':
-                self.hue_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/hue_h':
-                self.hue_red_h = param.value
-            elif    param.name == '~detect/traffic_light/red/saturation_l':
-                self.saturation_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/saturation_h':
-                self.saturation_red_h = param.value
-            elif    param.name == '~detect/traffic_light/red/lightness_l':
-                self.lightness_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/lightness_h':
-                self.lightness_red_h = param.value
-        return SetParametersResult(successful=True)
+
+    def set_red_h_max(self, pos):
+        self.hue_red_h = pos
+    def set_red_h_min(self, pos):
+        self.hue_red_l = pos
+    def set_red_s_max(self, pos):
+        self.saturation_red_h = pos
+    def set_red_s_min(self, pos):
+        self.saturation_red_l = pos
+    def set_red_v_max(self, pos):
+        self.lightness_red_h = pos
+    def set_red_v_min(self, pos):
+        self.lightness_red_l = pos
+    def set_yellow_h_max(self, pos):
+        self.hue_yellow_h = pos
+    def set_yellow_h_min(self, pos):
+        self.hue_yellow_l = pos
+    def set_yellow_s_max(self, pos):
+        self.saturation_yellow_h = pos
+    def set_yellow_s_min(self, pos):
+        self.saturation_yellow_l = pos
+    def set_yellow_v_max(self, pos):
+        self.lightness_yellow_h = pos
+    def set_yellow_v_min(self, pos):
+        self.lightness_yellow_l = pos
+    def set_green_h_max(self, pos):
+        self.hue_green_h = pos
+    def set_green_h_min(self, pos):
+        self.hue_green_l = pos
+    def set_green_s_max(self, pos):
+        self.saturation_green_h = pos
+    def set_green_s_min(self, pos):
+        self.saturation_green_l = pos
+    def set_green_v_max(self, pos):
+        self.lightness_green_h = pos
+    def set_green_v_min(self, pos):
+        self.lightness_green_l = pos
 
     def cbGetDetectTrafficLightParam(self, config, level):
        

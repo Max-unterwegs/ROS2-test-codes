@@ -147,23 +147,30 @@ class DetectLevel(Node):
         self.is_level_crossing_finished = False
 
         self.counter = 1
-        self.add_on_set_parameters_callback(self.on_parameters_set)
+        cv2.namedWindow('level_crossing')
+        cv2.createTrackbar('hue_red_l', 'level_crossing', self.hue_red_l, 255, self.set_h_min)
+        cv2.createTrackbar('hue_red_h', 'level_crossing', self.hue_red_h, 255, self.set_h_max)
+        cv2.createTrackbar('saturation_red_l', 'level_crossing', self.saturation_red_l, 255, self.set_s_min)
+        cv2.createTrackbar('saturation_red_h', 'level_crossing', self.saturation_red_h, 255, self.set_s_max)
+        cv2.createTrackbar('lightness_red_l', 'level_crossing', self.lightness_red_l, 255, self.set_v_min)
+        cv2.createTrackbar('lightness_red_h', 'level_crossing', self.lightness_red_h, 255, self.set_v_max)
+        
+        
         #self.create_timer(1.0 / 15, self.fnFindLevel)
-    def on_parameters_set(self, params):
-        for param in params:
-            if    param.name == '~detect/traffic_light/red/hue_l':
-                self.hue_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/hue_h':
-                self.hue_red_h = param.value
-            elif    param.name == '~detect/traffic_light/red/saturation_l':
-                self.saturation_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/saturation_h':
-                self.saturation_red_h = param.value
-            elif    param.name == '~detect/traffic_light/red/lightness_l':
-                self.lightness_red_l = param.value
-            elif    param.name == '~detect/traffic_light/red/lightness_h':
-                self.lightness_red_h = param.value
-        return SetParametersResult(successful=True)
+    def set_h_min(self, pos):
+        self.hue_red_l = pos
+    def set_h_max(self, pos):
+        self.hue_red_h = pos
+    def set_s_min(self, pos):
+        self.saturation_red_l = pos
+    def set_s_max(self, pos):
+        self.saturation_red_h = pos
+    def set_v_min(self, pos):
+        self.lightness_red_l = pos
+    def set_v_max(self, pos):
+        self.lightness_red_h = pos
+
+    
     def cbGetDetectLevelParam(self, config, level):
         self.get_logger().info("[Detect Level] Detect Level Calibration Parameter reconfigured to")
         self.get_logger().info("hue_red_l : %d" % config.hue_red_l)
