@@ -15,7 +15,6 @@ from rcl_interfaces.msg import ParameterDescriptor, ParameterType, IntegerRange,
 class DetectTrafficLight(Node):
     def __init__(self):
         super().__init__('detect_traffic_light')
-        #self.get_logger().info('start detect traffic light node')
         self.status = 1
         hsv_parameter_descriptor = ParameterDescriptor(
                 type=ParameterType.PARAMETER_INTEGER,
@@ -224,7 +223,6 @@ class DetectTrafficLight(Node):
         #self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
             self.stop_count = 0
-            self.red_count = 0
             self.green_count += 1
         else:
             self.green_count = 0
@@ -245,7 +243,6 @@ class DetectTrafficLight(Node):
                 self.get_logger().info(str(status3))
                 if status3 == 3:
                     self.red_count += 1
-                    self.stop_count += 1
                 elif status3 == 4:
                     self.red_count = 0
                     self.stop_count += 1
@@ -253,8 +250,8 @@ class DetectTrafficLight(Node):
                     self.red_count = 0
                     self.stop_count = 0
 
-        if self.green_count > 3:
-            self.get_logger().info("11111111")
+        if self.green_count > 20:
+            # self.get_logger().info("11111111")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.12
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -268,8 +265,7 @@ class DetectTrafficLight(Node):
             self.get_logger().info("YELLOW")
             cv2.putText(self.cv_image,"YELLOW", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 255))
 
-        if self.red_count > 3:
-            #self.red_count = 0
+        if self.red_count > 8:
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.03
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -447,18 +443,17 @@ class DetectTrafficLight(Node):
             #print(self.point_col)
             #print(self.point_low)
             if True:#self.point_col > col1 and self.point_col < col2 and self.point_low > low1 and self.point_low < low2:
-                print(find_color)
                 if find_color == 'green':
                     status = 1
-            #    elif find_color == 'yellow':
-             #       status = 2
+                elif find_color == 'yellow':
+                    status = 2
                 elif find_color == 'red':
                     status = 3
-           # elif self.point_col > col2 and self.point_col < col3 and self.point_low > low1 and self.point_low < low3:
-              #  if find_color == 'red':
-              #      status = 4
-              #  elif find_color == 'green':
-              #      status = 5
+            elif self.point_col > col2 and self.point_col < col3 and self.point_low > low1 and self.point_low < low3:
+                if find_color == 'red':
+                    status = 4
+                elif find_color == 'green':
+                    status = 5
             else:
                 status = 6
 
