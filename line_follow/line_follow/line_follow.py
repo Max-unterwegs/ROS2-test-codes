@@ -66,6 +66,8 @@ class LineFollower(Node):
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
     self.nofindcounter=0
     self.maxmax = 0.12
+    self.status_i=0
+    self.status_s=[1 ,2 ,2 ,1]
   def con_run(self, msg):
     self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
@@ -134,6 +136,7 @@ class LineFollower(Node):
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
       self.nofindcounter = 0
+      self.status_i=0
         #   self.angleBuffer.append(err)
         # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
@@ -146,23 +149,23 @@ class LineFollower(Node):
     else:
       self.get_logger().info("没有发现线存在,请调节hsv值")
       self.nofindcounter+=1
-      if self.nofindcounter%20 == 0:
-         self.get_logger().info("@@@z+0.5")
-         self.twist.angular.z = 0.5
+      if self.nofindcounter % 60 == 0 and self.status_s[self.status_i] == 2:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z+1.0")
+         self.twist.angular.z = 2.0
+         self.twist.linear.x = 0.0
          if self.run == 1:
            self.cmd_vel_pub.publish(self.twist)
-         time.sleep(0.8)
-      elif self.nofindcounter%20 == 10:
-         self.get_logger().info("@@@z-0.5")
-         self.twist.angular.z = -0.5
+         
+      elif self.nofindcounter %60 == 0 and self.status_s[self.status_i] == 1:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z-1.0")
+         self.twist.angular.z = -2.0
+         self.twist.linear.x = 0.0
          if self.run == 1:
            self.cmd_vel_pub.publish(self.twist)
-         time.sleep(1.6)
-      if self.nofindcounter>100:
-        self.twist.angular.z = 0.0
-        self.twist.linear.x = 0.0
-        self.cmd_vel_pub.publish(self.twist)
-        self.nofindcounter=0
+         
+         
       
       
     cv2.resize(mask,(640,480))

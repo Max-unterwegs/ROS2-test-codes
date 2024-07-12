@@ -12,6 +12,7 @@ from enum import Enum
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from cv_bridge import CvBridge, CvBridgeError
+import time
 #from dynamic_reconfigure.server import Server
 #from turtlebot3_autorace_detect.cfg import DetectLevelParamsConfig
 
@@ -406,8 +407,8 @@ class DetectLevel(Node):
             # 计算斜率和角度
             slope = (point2[1] - point1[1]) / (point2[0] - point1[0])
             angle = math.atan(slope) * 180 / math.pi
-            # 比较角度和30度
-            if abs(angle) < 30:
+            # 比较角度和60度
+            if abs(angle) < 60:
                 is_level_close = True
                 is_level_opened = False
                 self.get_logger().info("angle:%f"% abs(angle))  
@@ -473,6 +474,7 @@ class DetectLevel(Node):
                 self.get_logger().info("Level Opened")
                 msg_pub_max_vel = Float64()
                 msg_pub_max_vel.data = 0.12
+                time.sleep(3)
                 self.pub_max_vel.publish(msg_pub_max_vel)
             
         else:
