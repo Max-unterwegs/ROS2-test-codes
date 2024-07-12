@@ -191,13 +191,13 @@ class DetectSign(Node):
             M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
             matchesMask3 = mask.ravel().tolist()
 
-            mse = self.fnCalcMSE(src_pts, dst_pts)
-            mse_text = "MSE: {:.2f}".format(mse) #将 MSE 转换为字符串
+            # mse = self.fnCalcMSE(src_pts, dst_pts)
+            # mse_text = "MSE: {:.2f}".format(mse) #将 MSE 转换为字符串
             # 使用 putText 函数将 MSE 写在图像上
-            cv2.putText(image_match, mse_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+            # cv2.putText(image_match, mse_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
             # 显示图像
-            cv2.imshow('Matches', image_match)
-            cv2.waitKey(3)
+            # cv2.imshow('Matches', image_match)
+            # cv2.waitKey(3)
             # cv2.destroyAllWindows()
             self.get_logger().info("mse:%d" %mse) # //*print log
             if mse < MIN_MSE_DECISION:
@@ -279,8 +279,8 @@ class DetectSign(Node):
                             flags = 2)
 
             final3 = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None,**draw_params3)
-            cv2.imshow('Matches', final3)
-            cv2.waitKey(3)
+            # cv2.imshow('Matches', final3)
+            # cv2.waitKey(3)
 
             if self.pub_image_type == "compressed":
                 # publishes traffic sign image in compressed type
