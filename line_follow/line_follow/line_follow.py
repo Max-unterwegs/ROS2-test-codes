@@ -64,10 +64,15 @@ class LineFollower(Node):
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+    self.parking_run = self.create_subscription(UInt8,'/control/parking',self.con_parking_run,QoSProfile(depth=1))
     self.nofindcounter=0
     self.maxmax = 0.12
     self.status_i=0
     self.status_s=[1 ,2 ,2 ,1]
+    self.parkingstart=0
+  def con_parking_run(self, msg):
+    #self.get_logger().info("parking_vel:%lf" % (self.maxmax))
+    self.parkingstart = msg.data
   def con_run(self, msg):
     self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
@@ -127,7 +132,7 @@ class LineFollower(Node):
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
       # self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
-      if(self.maxmax > 0.05 and self.max_detect_level> 0.05):
+      if(self.maxmax > 0.05 and self.max_detect_level> 0.05 and self.parkingstart == 0):
         if(abs(err)>self.err_grenze):
           self.twist.angular.z = -float(err) / self.z_speed
         if(abs(err)>self.err_grenze_da):
@@ -149,7 +154,7 @@ class LineFollower(Node):
     else:
       self.get_logger().info("没有发现线存在,请调节hsv值")
       self.nofindcounter+=1
-      if self.nofindcounter % 60 == 0 and self.status_s[self.status_i] == 2:
+      if self.nofindcounter % 60 == 0 and self.status_s[self.status_i] == 2 and self.parkingstart == 0:
          self.status_i = (self.status_i+1)%4
          self.get_logger().info("@@@z+1.0")
          self.twist.angular.z = 2.0
@@ -157,7 +162,7 @@ class LineFollower(Node):
          if self.run == 1:
            self.cmd_vel_pub.publish(self.twist)
          
-      elif self.nofindcounter %60 == 0 and self.status_s[self.status_i] == 1:
+      elif self.nofindcounter %60 == 0 and self.status_s[self.status_i] == 1 and self.parkingstart == 0:
          self.status_i = (self.status_i+1)%4
          self.get_logger().info("@@@z-1.0")
          self.twist.angular.z = -2.0
