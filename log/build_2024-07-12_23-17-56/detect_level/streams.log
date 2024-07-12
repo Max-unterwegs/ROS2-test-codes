@@ -1,0 +1,21 @@
+[1.266s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data
+[1.395s] running egg_info
+[1.396s] writing ../build/detect_level/detect_level.egg-info/PKG-INFO
+[1.396s] writing dependency_links to ../build/detect_level/detect_level.egg-info/dependency_links.txt
+[1.396s] writing entry points to ../build/detect_level/detect_level.egg-info/entry_points.txt
+[1.396s] writing requirements to ../build/detect_level/detect_level.egg-info/requires.txt
+[1.396s] writing top-level names to ../build/detect_level/detect_level.egg-info/top_level.txt
+[1.397s] reading manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+[1.398s] writing manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+[1.398s] running build
+[1.398s] running build_py
+[1.399s] running install
+[1.399s] running install_lib
+[1.399s] running install_data
+[1.399s] running install_egg_info
+[1.401s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level-0.0.0-py3.10.egg-info' (and everything under it)
+[1.401s] Copying ../build/detect_level/detect_level.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level-0.0.0-py3.10.egg-info
+[1.402s] running install_scripts
+[1.420s] Installing detect_level script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/detect_level
+[1.420s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log'
+[1.462s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data

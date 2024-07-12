@@ -4,7 +4,7 @@
   <name>control</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="liu@todo.todo">liu</maintainer>
+  <maintainer email="147925272+Liudingai@users.noreply.github.com">liu</maintainer>
   <license>TODO: License declaration</license>
 
   <test_depend>ament_copyright</test_depend>

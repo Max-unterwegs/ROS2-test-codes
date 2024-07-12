@@ -1,0 +1,20 @@
+[1.283s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/control': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/control build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/install.log --single-version-externally-managed install_data
+[1.413s] running egg_info
+[1.414s] writing ../build/control/control.egg-info/PKG-INFO
+[1.414s] writing dependency_links to ../build/control/control.egg-info/dependency_links.txt
+[1.414s] writing entry points to ../build/control/control.egg-info/entry_points.txt
+[1.414s] writing requirements to ../build/control/control.egg-info/requires.txt
+[1.415s] writing top-level names to ../build/control/control.egg-info/top_level.txt
+[1.415s] reading manifest file '../build/control/control.egg-info/SOURCES.txt'
+[1.416s] writing manifest file '../build/control/control.egg-info/SOURCES.txt'
+[1.416s] running build
+[1.416s] running build_py
+[1.417s] running install
+[1.417s] running install_lib
+[1.418s] running install_data
+[1.418s] running install_egg_info
+[1.419s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/control/lib/python3.10/site-packages/control-0.0.0-py3.10.egg-info' (and everything under it)
+[1.420s] Copying ../build/control/control.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/control/lib/python3.10/site-packages/control-0.0.0-py3.10.egg-info
+[1.420s] running install_scripts
+[1.436s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/install.log'
+[1.491s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/control' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/control build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/control/install.log --single-version-externally-managed install_data
