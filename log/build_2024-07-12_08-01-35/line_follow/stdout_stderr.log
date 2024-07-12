@@ -1,0 +1,35 @@
+running egg_info
+creating ../build/line_follow/line_follow.egg-info
+writing ../build/line_follow/line_follow.egg-info/PKG-INFO
+writing dependency_links to ../build/line_follow/line_follow.egg-info/dependency_links.txt
+writing entry points to ../build/line_follow/line_follow.egg-info/entry_points.txt
+writing requirements to ../build/line_follow/line_follow.egg-info/requires.txt
+writing top-level names to ../build/line_follow/line_follow.egg-info/top_level.txt
+writing manifest file '../build/line_follow/line_follow.egg-info/SOURCES.txt'
+reading manifest file '../build/line_follow/line_follow.egg-info/SOURCES.txt'
+writing manifest file '../build/line_follow/line_follow.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib/line_follow
+copying line_follow/line_follow.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib/line_follow
+copying line_follow/__init__.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib/line_follow
+running install
+running install_lib
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow
+copying /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib/line_follow/line_follow.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow
+copying /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build/lib/line_follow/__init__.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow
+byte-compiling /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow/line_follow.py to line_follow.cpython-310.pyc
+byte-compiling /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/ament_index
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/ament_index/resource_index
+creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/ament_index/resource_index/packages
+copying resource/line_follow -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/ament_index/resource_index/packages
+copying package.xml -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow
+running install_egg_info
+Copying ../build/line_follow/line_follow.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow-0.0.0-py3.10.egg-info
+running install_scripts
+Installing line_follow script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/line_follow
+writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log'

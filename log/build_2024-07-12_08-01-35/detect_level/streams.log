@@ -1,0 +1,37 @@
+[1.183s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data
+[1.309s] running egg_info
+[1.309s] creating ../build/detect_level/detect_level.egg-info
+[1.309s] writing ../build/detect_level/detect_level.egg-info/PKG-INFO
+[1.309s] writing dependency_links to ../build/detect_level/detect_level.egg-info/dependency_links.txt
+[1.309s] writing entry points to ../build/detect_level/detect_level.egg-info/entry_points.txt
+[1.309s] writing requirements to ../build/detect_level/detect_level.egg-info/requires.txt
+[1.309s] writing top-level names to ../build/detect_level/detect_level.egg-info/top_level.txt
+[1.309s] writing manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+[1.311s] reading manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+[1.312s] writing manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+[1.312s] running build
+[1.312s] running build_py
+[1.313s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build
+[1.313s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib
+[1.313s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib/detect_level
+[1.313s] copying detect_level/__init__.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib/detect_level
+[1.313s] copying detect_level/detect_level.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib/detect_level
+[1.313s] running install
+[1.313s] running install_lib
+[1.314s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level
+[1.315s] copying /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib/detect_level/__init__.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level
+[1.315s] copying /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build/lib/detect_level/detect_level.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level
+[1.315s] byte-compiling /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level/__init__.py to __init__.cpython-310.pyc
+[1.315s] byte-compiling /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level/detect_level.py to detect_level.cpython-310.pyc
+[1.317s] running install_data
+[1.317s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/ament_index
+[1.317s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/ament_index/resource_index
+[1.317s] creating /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/ament_index/resource_index/packages
+[1.318s] copying resource/detect_level -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/ament_index/resource_index/packages
+[1.318s] copying package.xml -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level
+[1.318s] running install_egg_info
+[1.319s] Copying ../build/detect_level/detect_level.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level-0.0.0-py3.10.egg-info
+[1.320s] running install_scripts
+[1.334s] Installing detect_level script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/detect_level
+[1.334s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log'
+[1.370s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data
