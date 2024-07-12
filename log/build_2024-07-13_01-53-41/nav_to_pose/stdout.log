@@ -1,0 +1,19 @@
+running egg_info
+writing ../build/nav_to_pose/nav_to_pose.egg-info/PKG-INFO
+writing dependency_links to ../build/nav_to_pose/nav_to_pose.egg-info/dependency_links.txt
+writing entry points to ../build/nav_to_pose/nav_to_pose.egg-info/entry_points.txt
+writing requirements to ../build/nav_to_pose/nav_to_pose.egg-info/requires.txt
+writing top-level names to ../build/nav_to_pose/nav_to_pose.egg-info/top_level.txt
+reading manifest file '../build/nav_to_pose/nav_to_pose.egg-info/SOURCES.txt'
+writing manifest file '../build/nav_to_pose/nav_to_pose.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/python3.10/site-packages/nav_to_pose-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../build/nav_to_pose/nav_to_pose.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/python3.10/site-packages/nav_to_pose-0.0.0-py3.10.egg-info
+running install_scripts
+Installing nav_to_pose script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/nav_to_pose
+writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/install.log'

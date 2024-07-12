@@ -23,11 +23,11 @@ class DetectTrafficLight(Node):
                     IntegerRange(from_value=0, to_value=255, step=1),
                 ]
             )
-        self.declare_parameter("~detect/lane/red/hue_l", 139, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/hue_l", 173, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/hue_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/red/saturation_l", 86, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/saturation_l", 140, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/saturation_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/red/lightness_l", 191, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/lightness_l", 84, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_red_l = self.get_parameter('~detect/lane/red/hue_l').get_parameter_value().integer_value
         self.hue_red_h = self.get_parameter('~detect/lane/red/hue_h').get_parameter_value().integer_value
@@ -116,7 +116,9 @@ class DetectTrafficLight(Node):
         self.red_count = 0
         self.stop_count = 0
         self.off_traffic = False
-        cv2.namedWindow('light')
+        cv2.namedWindow("light")
+        cv2.moveWindow("light",500,20)
+        cv2.resizeWindow("light",480,900)
         cv2.createTrackbar('hue_red_l', 'light', self.hue_red_l, 255, self.set_red_h_min)
         cv2.createTrackbar('hue_red_h', 'light', self.hue_red_h, 255, self.set_red_h_max)
         cv2.createTrackbar('saturation_red_l', 'light', self.saturation_red_l, 255, self.set_red_s_min)
@@ -260,6 +262,7 @@ class DetectTrafficLight(Node):
         #self.get_logger().info(str(status1))
         if status1 == 1 or status1 == 5:
             self.stop_count = 0
+            self.red_count = 0
             self.green_count += 1
         else:
             self.green_count = 0
@@ -280,6 +283,7 @@ class DetectTrafficLight(Node):
                 self.get_logger().info(str(status3))
                 if status3 == 3:
                     self.red_count += 1
+                    self.stop_count += 1
                 elif status3 == 4:
                     self.red_count = 0
                     self.stop_count += 1
@@ -287,8 +291,8 @@ class DetectTrafficLight(Node):
                     self.red_count = 0
                     self.stop_count = 0
 
-        if self.green_count > 20:
-            # self.get_logger().info("11111111")
+        if self.green_count > 3:
+            self.get_logger().info("11111111")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.12
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -302,7 +306,8 @@ class DetectTrafficLight(Node):
             self.get_logger().info("YELLOW")
             cv2.putText(self.cv_image,"YELLOW", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 255))
 
-        if self.red_count > 8:
+        if self.red_count > 3:
+            #self.red_count = 0
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.03
             self.pub_max_vel.publish(msg_pub_max_vel)
@@ -324,10 +329,39 @@ class DetectTrafficLight(Node):
         elif self.pub_image_type == "raw":
             # publishes traffic light image in raw type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_imgmsg(self.cv_image, "bgr8"))
-        cv2.imshow("Traffic", self.cv_image)
-        cv2.waitKey(1)
+        cv2.imshow("light", self.cv_image)
+        cv2.waitKey(3)
      
-
+    def stackImages(self,scale,imgArray):
+        rows = len(imgArray)
+        cols = len(imgArray[0])
+        rowsAvailable = isinstance(imgArray[0], list)
+        width = imgArray[0][0].shape[1]
+        height = imgArray[0][0].shape[0]
+        if rowsAvailable:
+            for x in range ( 0, rows):
+                for y in range(0, cols):
+                    if imgArray[x][y].shape[:2] == imgArray[0][0].shape [:2]:
+                        imgArray[x][y] = cv2.resize(imgArray[x][y], (0, 0), None, scale, scale)
+                    else:
+                        imgArray[x][y] = cv2.resize(imgArray[x][y], (imgArray[0][0].shape[1], imgArray[0][0].shape[0]), None, scale, scale)
+                    if len(imgArray[x][y].shape) == 2: imgArray[x][y]= cv2.cvtColor( imgArray[x][y], cv2.COLOR_GRAY2BGR)
+            imageBlank = np.zeros((height, width, 3), np.uint8)
+            hor = [imageBlank]*rows
+            hor_con = [imageBlank]*rows
+            for x in range(0, rows):
+                hor[x] = np.hstack(imgArray[x])
+            ver = np.vstack(hor)
+        else:
+            for x in range(0, rows):
+                if imgArray[x].shape[:2] == imgArray[0].shape[:2]:
+                    imgArray[x] = cv2.resize(imgArray[x], (0, 0), None, scale, scale)
+                else:
+                    imgArray[x] = cv2.resize(imgArray[x], (imgArray[0].shape[1], imgArray[0].shape[0]), None,scale, scale)
+                if len(imgArray[x].shape) == 2: imgArray[x] = cv2.cvtColor(imgArray[x], cv2.COLOR_GRAY2BGR)
+            hor= np.hstack(imgArray)
+            ver = hor
+        return ver
     def fnMaskRedTrafficLight(self):
         #self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
         image = np.copy(self.cv_image)
@@ -362,6 +396,7 @@ class DetectTrafficLight(Node):
                 self.pub_image_red_light.publish(self.cvBridge.cv2_to_imgmsg(mask, "mono8"))
 
         mask = cv2.bitwise_not(mask)
+        self.red_mask=mask
 
         return mask
 
@@ -436,7 +471,7 @@ class DetectTrafficLight(Node):
                 self.pub_image_green_light.publish(self.cvBridge.cv2_to_imgmsg(mask, "mono8"))
 
         mask = cv2.bitwise_not(mask)
-
+        self.green_mask=mask
         return mask
 
     def fnFindCircleOfTrafficLight(self, mask, find_color):
@@ -480,17 +515,18 @@ class DetectTrafficLight(Node):
             #print(self.point_col)
             #print(self.point_low)
             if True:#self.point_col > col1 and self.point_col < col2 and self.point_low > low1 and self.point_low < low2:
+                print(find_color)
                 if find_color == 'green':
                     status = 1
-                elif find_color == 'yellow':
-                    status = 2
+            #    elif find_color == 'yellow':
+             #       status = 2
                 elif find_color == 'red':
                     status = 3
-            elif self.point_col > col2 and self.point_col < col3 and self.point_low > low1 and self.point_low < low3:
-                if find_color == 'red':
-                    status = 4
-                elif find_color == 'green':
-                    status = 5
+           # elif self.point_col > col2 and self.point_col < col3 and self.point_low > low1 and self.point_low < low3:
+              #  if find_color == 'red':
+              #      status = 4
+              #  elif find_color == 'green':
+              #      status = 5
             else:
                 status = 6
 

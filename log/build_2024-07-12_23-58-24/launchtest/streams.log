@@ -1,0 +1,20 @@
+[1.276s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/launchtest build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/install.log --single-version-externally-managed install_data
+[1.412s] running egg_info
+[1.412s] writing ../build/launchtest/launchtest.egg-info/PKG-INFO
+[1.412s] writing dependency_links to ../build/launchtest/launchtest.egg-info/dependency_links.txt
+[1.412s] writing entry points to ../build/launchtest/launchtest.egg-info/entry_points.txt
+[1.412s] writing requirements to ../build/launchtest/launchtest.egg-info/requires.txt
+[1.412s] writing top-level names to ../build/launchtest/launchtest.egg-info/top_level.txt
+[1.413s] reading manifest file '../build/launchtest/launchtest.egg-info/SOURCES.txt'
+[1.414s] writing manifest file '../build/launchtest/launchtest.egg-info/SOURCES.txt'
+[1.414s] running build
+[1.414s] running build_py
+[1.414s] running install
+[1.414s] running install_lib
+[1.415s] running install_data
+[1.415s] running install_egg_info
+[1.416s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages/launchtest-0.0.0-py3.10.egg-info' (and everything under it)
+[1.416s] Copying ../build/launchtest/launchtest.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages/launchtest-0.0.0-py3.10.egg-info
+[1.417s] running install_scripts
+[1.434s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/install.log'
+[1.462s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/launchtest build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/install.log --single-version-externally-managed install_data

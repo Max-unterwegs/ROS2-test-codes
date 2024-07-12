@@ -25,6 +25,7 @@ from rclpy.qos import QoSProfile
 import numpy as np
 import math
 import os
+from std_msgs.msg import UInt8, Float64
 import cv2
 from enum import Enum
 from std_msgs.msg import UInt8
@@ -57,6 +58,7 @@ class DetectSign(Node):
         self.pub_traffic_sign = self.create_publisher(UInt8, '/detect/traffic_sign', QoSProfile(depth=1))
         self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
         self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
+        self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
         self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
@@ -75,11 +77,12 @@ class DetectSign(Node):
         
     def control_parking_callback(self, msg):
         if(msg.data == 1 ):
-            print('Parking')
-            self.parking_signal = 1 # //* 1 表示正在停车
-        else:
-            self.parking_signal = 0 #//* 0 表示停车完成
-            # self.paring_feedback.publish(UInt8(data=1))
+            pass
+        #     print('Parking')
+        #     self.parking_signal = 1 # //* 1 表示正在停车
+        # else:
+        #     self.parking_signal = 0 #//* 0 表示停车完成
+        #     # self.paring_feedback.publish(UInt8(data=1))
 
     def fnPreproc(self):
         # Initiate SIFT detector
@@ -139,7 +142,7 @@ class DetectSign(Node):
         elif self.sub_image_type == "raw":
             cv_image_input = self.cvBridge.imgmsg_to_cv2(image_msg, "bgr8")
 
-        MIN_MATCH_COUNT = 5      # 更改参数调节
+        MIN_MATCH_COUNT = 7      # 更改参数调节
         MIN_MSE_DECISION = 50000
 
         # find the keypoints and descriptors with SIFT
@@ -191,7 +194,7 @@ class DetectSign(Node):
             M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
             matchesMask3 = mask.ravel().tolist()
 
-            # mse = self.fnCalcMSE(src_pts, dst_pts)
+            mse = self.fnCalcMSE(src_pts, dst_pts)
             # mse_text = "MSE: {:.2f}".format(mse) #将 MSE 转换为字符串
             # 使用 putText 函数将 MSE 写在图像上
             # cv2.putText(image_match, mse_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
@@ -208,14 +211,31 @@ class DetectSign(Node):
 
                 self.get_logger().info("TrafficSign 3")
                 # //*接下来是发布停车信号
-                msg_parking = UInt8()
-                msg_parking.data = 0
-                self.start_parking.publish(msg_parking)
+                # msg_parking = UInt8()
+                # msg_parking.data = 0
+                # self.start_parking.publish(msg_parking)
                 # //*直到停车完毕
-                if(self.parking_signal == 1):
-                    msg_parking.data = 1
-                    self.start_parking.publish(msg_parking)
+                if(self.parking_signal == 0):
+                    # msg_parking.data = 1
+                    # self.start_parking.publish(msg_parking)
+                    msg_pub_max_vel = Float64()
+                    msg_pub_max_vel.data = 0.03
+                    self.pub_max_vel.publish(msg_pub_max_vel)
                     self.get_logger().info("Parking")
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.2,max_translation_speed: 3.0}"')
+                    # os.system('sleep 15')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.5,max_translation_speed: 3.0}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: 3.14,max_rotation_speed: 0.9}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
+                    msg_pub_max_vel.data = 0.20
+                    self.pub_max_vel.publish(msg_pub_max_vel)
+
+                    self.parking_signal = 1 
+
 
                 image_out_num = 3
 
@@ -279,8 +299,8 @@ class DetectSign(Node):
                             flags = 2)
 
             final3 = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None,**draw_params3)
-            # cv2.imshow('Matches', final3)
-            # cv2.waitKey(3)
+            cv2.imshow('Matches', final3)
+            cv2.waitKey(3)
 
             if self.pub_image_type == "compressed":
                 # publishes traffic sign image in compressed type

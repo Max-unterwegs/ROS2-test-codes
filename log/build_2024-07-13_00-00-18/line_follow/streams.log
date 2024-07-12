@@ -1,0 +1,21 @@
+[1.317s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/line_follow build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log --single-version-externally-managed install_data
+[1.455s] running egg_info
+[1.456s] writing ../build/line_follow/line_follow.egg-info/PKG-INFO
+[1.456s] writing dependency_links to ../build/line_follow/line_follow.egg-info/dependency_links.txt
+[1.456s] writing entry points to ../build/line_follow/line_follow.egg-info/entry_points.txt
+[1.456s] writing requirements to ../build/line_follow/line_follow.egg-info/requires.txt
+[1.456s] writing top-level names to ../build/line_follow/line_follow.egg-info/top_level.txt
+[1.457s] reading manifest file '../build/line_follow/line_follow.egg-info/SOURCES.txt'
+[1.458s] writing manifest file '../build/line_follow/line_follow.egg-info/SOURCES.txt'
+[1.458s] running build
+[1.458s] running build_py
+[1.458s] running install
+[1.458s] running install_lib
+[1.459s] running install_data
+[1.459s] running install_egg_info
+[1.460s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow-0.0.0-py3.10.egg-info' (and everything under it)
+[1.461s] Copying ../build/line_follow/line_follow.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages/line_follow-0.0.0-py3.10.egg-info
+[1.461s] running install_scripts
+[1.475s] Installing line_follow script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/line_follow
+[1.475s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log'
+[1.515s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/line_follow build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log --single-version-externally-managed install_data
