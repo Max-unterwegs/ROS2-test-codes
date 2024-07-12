@@ -23,11 +23,11 @@ class LineFollower(Node):
     self.max_detect_level = 0.0
     self.colorLower = None
     self.colorUpper = None
-    self.declare_parameter("~h_min", 20)
-    self.declare_parameter("~h_max", 50)
-    self.declare_parameter("~s_min", 50)
+    self.declare_parameter("~h_min", 25)
+    self.declare_parameter("~h_max", 55)
+    self.declare_parameter("~s_min", 40)
     self.declare_parameter("~s_max", 255)
-    self.declare_parameter("~v_min", 80)
+    self.declare_parameter("~v_min", 152)
     self.declare_parameter("~v_max", 255)
     self.declare_parameter("~run", 0)
     self.declare_parameter("~x_speed_10", 5)

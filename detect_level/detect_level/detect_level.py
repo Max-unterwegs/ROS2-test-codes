@@ -80,10 +80,10 @@ class DetectLevel(Node):
                 ]
             )
         self.declare_parameter("~detect/level/red/hue_l", 0, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/level/red/hue_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/level/red/saturation_l", 128, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/level/red/saturation_h", 253, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/level/red/lightness_l", 68, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/hue_h", 25, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/saturation_l", 42, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/saturation_h", 255, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/level/red/lightness_l", 143, hsv_parameter_descriptor)
         self.declare_parameter("~detect/level/red/lightness_h", 255, hsv_parameter_descriptor)
         self.declare_parameter("~is_detection_calibration_mode", True)
         self.hue_red_l = self.get_parameter('~detect/level/red/hue_l').get_parameter_value().integer_value
