@@ -1,0 +1,3 @@
+[console_scripts]
+detect_level = detect_level.detect_level:main
+

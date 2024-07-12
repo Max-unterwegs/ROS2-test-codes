@@ -1,0 +1,3 @@
+[console_scripts]
+traffic_light = traffic_light.traffic_light:main
+

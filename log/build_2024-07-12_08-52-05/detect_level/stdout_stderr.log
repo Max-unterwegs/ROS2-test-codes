@@ -1,0 +1,19 @@
+running egg_info
+writing ../build/detect_level/detect_level.egg-info/PKG-INFO
+writing dependency_links to ../build/detect_level/detect_level.egg-info/dependency_links.txt
+writing entry points to ../build/detect_level/detect_level.egg-info/entry_points.txt
+writing requirements to ../build/detect_level/detect_level.egg-info/requires.txt
+writing top-level names to ../build/detect_level/detect_level.egg-info/top_level.txt
+reading manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+writing manifest file '../build/detect_level/detect_level.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../build/detect_level/detect_level.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages/detect_level-0.0.0-py3.10.egg-info
+running install_scripts
+Installing detect_level script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/detect_level
+writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log'
