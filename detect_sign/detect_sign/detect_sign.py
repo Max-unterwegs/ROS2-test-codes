@@ -55,6 +55,9 @@ class DetectSign(Node):
             self.sub_image_original = self.create_subscription(Image, '/oakd/rgb/preview/image_raw', self.cbFindTrafficSign, QoSProfile(depth=1))
 
         self.pub_traffic_sign = self.create_publisher(UInt8, '/detect/traffic_sign', QoSProfile(depth=1))
+        self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
+        self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
+        self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
             # publishes traffic sign image in compressed type 
@@ -69,6 +72,14 @@ class DetectSign(Node):
 
         self.counter = 1
         print("1111")
+        
+    def control_parking_callback(self, msg):
+        if(msg.data == 1 ):
+            print('Parking')
+            self.parking_signal = 1 # //* 1 表示正在停车
+        else:
+            self.parking_signal = 0 #//* 0 表示停车完成
+            # self.paring_feedback.publish(UInt8(data=1))
 
     def fnPreproc(self):
         # Initiate SIFT detector
@@ -196,6 +207,15 @@ class DetectSign(Node):
                 self.pub_traffic_sign.publish(msg_sign)
 
                 self.get_logger().info("TrafficSign 3")
+                # //*接下来是发布停车信号
+                msg_parking = UInt8()
+                msg_parking.data = 0
+                self.start_parking.publish(msg_parking)
+                # //*直到停车完毕
+                if(self.parking_signal == 1):
+                    msg_parking.data = 1
+                    self.start_parking.publish(msg_parking)
+                    self.get_logger().info("Parking")
 
                 image_out_num = 3
 
