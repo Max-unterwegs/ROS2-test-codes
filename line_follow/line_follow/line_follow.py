@@ -9,7 +9,7 @@ from rclpy.qos import QoSProfile
 import math
 bridge = CvBridge()  # 转换为ros2的消息类型(imgmsg)的工具
 import numpy as np
-
+import time
 class LineFollower(Node):
   def __init__(self):
     super().__init__('line_follow')
@@ -64,6 +64,7 @@ class LineFollower(Node):
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+    self.nofindcounter=0
   def con_run(self, msg):
     self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
@@ -131,6 +132,7 @@ class LineFollower(Node):
       else: 
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
+      self.nofindcounter = 0
         #   self.angleBuffer.append(err)
         # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
@@ -142,6 +144,26 @@ class LineFollower(Node):
       # END CONTROL
     else:
       self.get_logger().info("没有发现线存在,请调节hsv值")
+      self.nofindcounter+=1
+      if self.nofindcounter%20 == 0:
+         self.get_logger().info("@@@z+0.5")
+         self.twist.angular.z = 0.5
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         time.sleep(0.8)
+      elif self.nofindcounter%20 == 10:
+         self.get_logger().info("@@@z-0.5")
+         self.twist.angular.z = -0.5
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         time.sleep(1.6)
+      if self.nofindcounter>100:
+        self.twist.angular.z = 0.0
+        self.twist.linear.x = 0.0
+        self.cmd_vel_pub.publish(self.twist)
+        self.nofindcounter=0
+      
+      
     cv2.resize(mask,(640,480))
     #cv2.imshow("mask", cv2.resize(mask,(500,500),interpolation=cv2.INTER_CUBIC))
     #cv2.resizeWindow("mask", 500, 500)

@@ -113,20 +113,20 @@ class DetectLevel(Node):
         
         if self.pub_image_type == "compressed":
             # publishes level image in compressed type 
-            self.pub_image_level = self.create_publisher(CompressedImage, '/detect/image_output/compressed', QoSProfile(depth=1))
+            self.pub_image_level = self.create_publisher(CompressedImage, '/detect_level/image_output/compressed', QoSProfile(depth=1))
         elif self.pub_image_type == "raw":
             # publishes level image in raw type
-            self.pub_image_level = self.create_publisher(Image, '/detect/image_output', QoSProfile(depth=1))
+            self.pub_image_level = self.create_publisher(Image, '/detect_level/image_output', QoSProfile(depth=1))
         
         # //? what is this
         if self.is_calibration_mode == True:
             
             if self.pub_image_type == "compressed":
                 # publishes color filtered image in compressed type 
-                 self.pub_image_color_filtered = self.create_publisher(CompressedImage, '/detect/image_output_sub1/compressed',  1)
+                 self.pub_image_color_filtered = self.create_publisher(CompressedImage, '/detect_level/image_output_sub1/compressed',  1)
             elif self.pub_image_type == "raw":
                 # publishes color filtered image in raw type
-                self.pub_image_color_filtered = self.create_publisher(Image, '/detect/image_output_sub1',  1)
+                self.pub_image_color_filtered = self.create_publisher(Image, '/detect_level/image_output_sub1',  1)
 
         # //*GET the message of the state of machine
         self.sub_level_crossing_order = self.create_subscription(UInt8, '/detect/level_crossing_order',  self.cbLevelCrossingOrder, 1) # //*get the message of the state of machine to132
@@ -148,6 +148,7 @@ class DetectLevel(Node):
 
         self.counter = 1
         cv2.namedWindow('level_crossing')
+        cv2.moveWindow("level_crossing",1080,20)
         cv2.createTrackbar('hue_red_l', 'level_crossing', self.hue_red_l, 255, self.set_h_min)
         cv2.createTrackbar('hue_red_h', 'level_crossing', self.hue_red_h, 255, self.set_h_max)
         cv2.createTrackbar('saturation_red_l', 'level_crossing', self.saturation_red_l, 255, self.set_s_min)
@@ -453,9 +454,10 @@ class DetectLevel(Node):
         elif self.pub_image_type == "raw":
             # publishes level image in raw type
             self.pub_image_level.publish(self.cvBridge.cv2_to_imgmsg(frame, "bgr8"))
-        
-        output = self.stackImages(0.8,([self.cv_image,frame,mask]))
-        cv2.imshow("detect", output)
+        cv2.resize(mask,(640,480))
+        cv2.resize(frame,(640,480))
+        output = self.stackImages(0.8,([frame,mask]))
+        cv2.imshow("level_crossing", output)
         cv2.waitKey(1)
         
         # //*begin moving    

@@ -116,7 +116,9 @@ class DetectTrafficLight(Node):
         self.red_count = 0
         self.stop_count = 0
         self.off_traffic = False
-        cv2.namedWindow('light')
+        cv2.namedWindow("light")
+        cv2.moveWindow("light",500,20)
+        cv2.resizeWindow("light",480,900)
         cv2.createTrackbar('hue_red_l', 'light', self.hue_red_l, 255, self.set_red_h_min)
         cv2.createTrackbar('hue_red_h', 'light', self.hue_red_h, 255, self.set_red_h_max)
         cv2.createTrackbar('saturation_red_l', 'light', self.saturation_red_l, 255, self.set_red_s_min)
@@ -324,10 +326,39 @@ class DetectTrafficLight(Node):
         elif self.pub_image_type == "raw":
             # publishes traffic light image in raw type
             self.pub_image_traffic_light.publish(self.cvBridge.cv2_to_imgmsg(self.cv_image, "bgr8"))
-        cv2.imshow("Traffic", self.cv_image)
-        cv2.waitKey(1)
+        cv2.imshow("light", self.cv_image)
+        cv2.waitKey(3)
      
-
+    def stackImages(self,scale,imgArray):
+        rows = len(imgArray)
+        cols = len(imgArray[0])
+        rowsAvailable = isinstance(imgArray[0], list)
+        width = imgArray[0][0].shape[1]
+        height = imgArray[0][0].shape[0]
+        if rowsAvailable:
+            for x in range ( 0, rows):
+                for y in range(0, cols):
+                    if imgArray[x][y].shape[:2] == imgArray[0][0].shape [:2]:
+                        imgArray[x][y] = cv2.resize(imgArray[x][y], (0, 0), None, scale, scale)
+                    else:
+                        imgArray[x][y] = cv2.resize(imgArray[x][y], (imgArray[0][0].shape[1], imgArray[0][0].shape[0]), None, scale, scale)
+                    if len(imgArray[x][y].shape) == 2: imgArray[x][y]= cv2.cvtColor( imgArray[x][y], cv2.COLOR_GRAY2BGR)
+            imageBlank = np.zeros((height, width, 3), np.uint8)
+            hor = [imageBlank]*rows
+            hor_con = [imageBlank]*rows
+            for x in range(0, rows):
+                hor[x] = np.hstack(imgArray[x])
+            ver = np.vstack(hor)
+        else:
+            for x in range(0, rows):
+                if imgArray[x].shape[:2] == imgArray[0].shape[:2]:
+                    imgArray[x] = cv2.resize(imgArray[x], (0, 0), None, scale, scale)
+                else:
+                    imgArray[x] = cv2.resize(imgArray[x], (imgArray[0].shape[1], imgArray[0].shape[0]), None,scale, scale)
+                if len(imgArray[x].shape) == 2: imgArray[x] = cv2.cvtColor(imgArray[x], cv2.COLOR_GRAY2BGR)
+            hor= np.hstack(imgArray)
+            ver = hor
+        return ver
     def fnMaskRedTrafficLight(self):
         #self.get_logger().info('[Detect Traffic Light] Mask Red Traffic Light')
         image = np.copy(self.cv_image)
@@ -362,6 +393,7 @@ class DetectTrafficLight(Node):
                 self.pub_image_red_light.publish(self.cvBridge.cv2_to_imgmsg(mask, "mono8"))
 
         mask = cv2.bitwise_not(mask)
+        self.red_mask=mask
 
         return mask
 
@@ -436,7 +468,7 @@ class DetectTrafficLight(Node):
                 self.pub_image_green_light.publish(self.cvBridge.cv2_to_imgmsg(mask, "mono8"))
 
         mask = cv2.bitwise_not(mask)
-
+        self.green_mask=mask
         return mask
 
     def fnFindCircleOfTrafficLight(self, mask, find_color):
