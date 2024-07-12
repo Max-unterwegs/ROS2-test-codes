@@ -1,0 +1,362 @@
+[0.099s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.099s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7164186e8e80>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7164186e8940>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7164186e8940>>)
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.211s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extensions ['ignore', 'ignore_ament_install']
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extension 'ignore'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extension 'ignore_ament_install'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extensions ['colcon_pkg']
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extension 'colcon_pkg'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extensions ['colcon_meta']
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extension 'colcon_meta'
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extensions ['ros']
+[0.219s] Level 1:colcon.colcon_core.package_identification:_identify(detect_level) by extension 'ros'
+[0.220s] DEBUG:colcon.colcon_core.package_identification:Package 'detect_level' with type 'ros.ament_python' and name 'detect_level'
+[0.220s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extensions ['ignore', 'ignore_ament_install']
+[0.220s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extension 'ignore'
+[0.220s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extension 'ignore_ament_install'
+[0.220s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extensions ['colcon_pkg']
+[0.220s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extension 'colcon_pkg'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extensions ['colcon_meta']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extension 'colcon_meta'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extensions ['ros']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(detect_sign) by extension 'ros'
+[0.221s] DEBUG:colcon.colcon_core.package_identification:Package 'detect_sign' with type 'ros.ament_python' and name 'detect_sign'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extensions ['ignore', 'ignore_ament_install']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extension 'ignore'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extension 'ignore_ament_install'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extensions ['colcon_pkg']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extension 'colcon_pkg'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extensions ['colcon_meta']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extension 'colcon_meta'
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extensions ['ros']
+[0.221s] Level 1:colcon.colcon_core.package_identification:_identify(launchtest) by extension 'ros'
+[0.221s] DEBUG:colcon.colcon_core.package_identification:Package 'launchtest' with type 'ros.ament_python' and name 'launchtest'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extensions ['ignore', 'ignore_ament_install']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extension 'ignore'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extension 'ignore_ament_install'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extensions ['colcon_pkg']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extension 'colcon_pkg'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extensions ['colcon_meta']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extension 'colcon_meta'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extensions ['ros']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(line_follow) by extension 'ros'
+[0.222s] DEBUG:colcon.colcon_core.package_identification:Package 'line_follow' with type 'ros.ament_python' and name 'line_follow'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extensions ['ignore', 'ignore_ament_install']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extension 'ignore'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extension 'ignore_ament_install'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extensions ['colcon_pkg']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extension 'colcon_pkg'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extensions ['colcon_meta']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extension 'colcon_meta'
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extensions ['ros']
+[0.222s] Level 1:colcon.colcon_core.package_identification:_identify(nav_to_pose) by extension 'ros'
+[0.223s] DEBUG:colcon.colcon_core.package_identification:Package 'nav_to_pose' with type 'ros.ament_python' and name 'nav_to_pose'
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extensions ['ignore', 'ignore_ament_install']
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extension 'ignore'
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extension 'ignore_ament_install'
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extensions ['colcon_pkg']
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extension 'colcon_pkg'
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extensions ['colcon_meta']
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extension 'colcon_meta'
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extensions ['ros']
+[0.223s] Level 1:colcon.colcon_core.package_identification:_identify(traffic_light) by extension 'ros'
+[0.223s] DEBUG:colcon.colcon_core.package_identification:Package 'traffic_light' with type 'ros.ament_python' and name 'traffic_light'
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.235s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.235s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.238s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 410 installed packages in /opt/ros/humble
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_target' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_clean_cache' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_clean_first' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'cmake_force_configure' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'ament_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'catkin_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_level' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.271s] DEBUG:colcon.colcon_core.verb:Building package 'detect_level' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level', 'symlink_install': False, 'test_result_base': None}
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_target' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_clean_cache' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_clean_first' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'cmake_force_configure' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'ament_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'catkin_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'detect_sign' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.271s] DEBUG:colcon.colcon_core.verb:Building package 'detect_sign' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign', 'symlink_install': False, 'test_result_base': None}
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_target' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_clean_cache' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_clean_first' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'cmake_force_configure' from command line to 'False'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'ament_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'catkin_cmake_args' from command line to 'None'
+[0.271s] Level 5:colcon.colcon_core.verb:set package 'launchtest' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.271s] DEBUG:colcon.colcon_core.verb:Building package 'launchtest' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest', 'symlink_install': False, 'test_result_base': None}
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_target' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_clean_cache' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_clean_first' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'cmake_force_configure' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'ament_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'catkin_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'line_follow' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.272s] DEBUG:colcon.colcon_core.verb:Building package 'line_follow' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow', 'symlink_install': False, 'test_result_base': None}
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_target' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_clean_cache' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_clean_first' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'cmake_force_configure' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'ament_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'catkin_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'nav_to_pose' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.272s] DEBUG:colcon.colcon_core.verb:Building package 'nav_to_pose' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/nav_to_pose', 'symlink_install': False, 'test_result_base': None}
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_target' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_clean_cache' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_clean_first' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'cmake_force_configure' from command line to 'False'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'ament_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'catkin_cmake_args' from command line to 'None'
+[0.272s] Level 5:colcon.colcon_core.verb:set package 'traffic_light' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.272s] DEBUG:colcon.colcon_core.verb:Building package 'traffic_light' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light', 'merge_install': False, 'path': '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light', 'symlink_install': False, 'test_result_base': None}
+[0.272s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.273s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.273s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level' with build type 'ament_python'
+[0.273s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect_level', 'ament_prefix_path')
+[0.275s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.276s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/ament_prefix_path.ps1'
+[0.276s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/ament_prefix_path.dsv'
+[0.276s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/ament_prefix_path.sh'
+[0.277s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.277s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.279s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign' with build type 'ament_python'
+[0.279s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect_sign', 'ament_prefix_path')
+[0.279s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/ament_prefix_path.ps1'
+[0.280s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/ament_prefix_path.dsv'
+[0.280s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/ament_prefix_path.sh'
+[0.280s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.280s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.282s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest' with build type 'ament_python'
+[0.283s] Level 1:colcon.colcon_core.shell:create_environment_hook('launchtest', 'ament_prefix_path')
+[0.283s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/ament_prefix_path.ps1'
+[0.283s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/ament_prefix_path.dsv'
+[0.283s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/ament_prefix_path.sh'
+[0.284s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.284s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.288s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow' with build type 'ament_python'
+[0.289s] Level 1:colcon.colcon_core.shell:create_environment_hook('line_follow', 'ament_prefix_path')
+[0.289s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/ament_prefix_path.ps1'
+[0.290s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/ament_prefix_path.dsv'
+[0.290s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/ament_prefix_path.sh'
+[0.291s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.291s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.293s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/nav_to_pose' with build type 'ament_python'
+[0.293s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav_to_pose', 'ament_prefix_path')
+[0.293s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/ament_prefix_path.ps1'
+[0.294s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/ament_prefix_path.dsv'
+[0.294s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/ament_prefix_path.sh'
+[0.294s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.294s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.297s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light' with build type 'ament_python'
+[0.297s] Level 1:colcon.colcon_core.shell:create_environment_hook('traffic_light', 'ament_prefix_path')
+[0.297s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/ament_prefix_path.ps1'
+[0.298s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/ament_prefix_path.dsv'
+[0.298s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/ament_prefix_path.sh'
+[0.298s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.298s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.455s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level'
+[0.455s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.455s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.608s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign'
+[0.608s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.608s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.754s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest'
+[0.754s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.754s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.908s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow'
+[0.908s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.908s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.054s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/nav_to_pose'
+[1.054s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.054s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.214s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light'
+[1.214s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.214s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.496s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/nav_to_pose': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/nav_to_pose build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/install.log --single-version-externally-managed install_data
+[1.499s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/launchtest build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/install.log --single-version-externally-managed install_data
+[1.502s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/line_follow build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log --single-version-externally-managed install_data
+[1.503s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_sign build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/install.log --single-version-externally-managed install_data
+[1.507s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/traffic_light build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/install.log --single-version-externally-managed install_data
+[1.508s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data
+[1.668s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/nav_to_pose' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/nav_to_pose build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/nav_to_pose/install.log --single-version-externally-managed install_data
+[1.670s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose' for CMake module files
+[1.671s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose' for CMake config files
+[1.671s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib'
+[1.671s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/bin'
+[1.671s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/pkgconfig/nav_to_pose.pc'
+[1.671s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/lib/python3.10/site-packages'
+[1.671s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav_to_pose', 'pythonpath')
+[1.671s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/pythonpath.ps1'
+[1.672s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/pythonpath.dsv'
+[1.672s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/hook/pythonpath.sh'
+[1.672s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/bin'
+[1.672s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(nav_to_pose)
+[1.673s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/package.ps1'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/package.dsv'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/package.sh'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/package.bash'
+[1.675s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/nav_to_pose/package.zsh'
+[1.675s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/nav_to_pose/share/colcon-core/packages/nav_to_pose)
+[1.676s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest' for CMake module files
+[1.676s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest' for CMake config files
+[1.677s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/launchtest' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/launchtest build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/launchtest/install.log --single-version-externally-managed install_data
+[1.677s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib'
+[1.677s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/bin'
+[1.677s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/pkgconfig/launchtest.pc'
+[1.677s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/lib/python3.10/site-packages'
+[1.677s] Level 1:colcon.colcon_core.shell:create_environment_hook('launchtest', 'pythonpath')
+[1.677s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/pythonpath.ps1'
+[1.678s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/pythonpath.dsv'
+[1.678s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/hook/pythonpath.sh'
+[1.678s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/bin'
+[1.678s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(launchtest)
+[1.679s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/package.ps1'
+[1.679s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/package.dsv'
+[1.679s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/package.sh'
+[1.679s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/package.bash'
+[1.679s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/launchtest/package.zsh'
+[1.680s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/launchtest/share/colcon-core/packages/launchtest)
+[1.681s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign' for CMake module files
+[1.681s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_sign build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/install.log --single-version-externally-managed install_data
+[1.681s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign' for CMake config files
+[1.681s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib'
+[1.682s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/bin'
+[1.682s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/pkgconfig/detect_sign.pc'
+[1.682s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages'
+[1.682s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect_sign', 'pythonpath')
+[1.682s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/pythonpath.ps1'
+[1.682s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/pythonpath.dsv'
+[1.683s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/hook/pythonpath.sh'
+[1.683s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/bin'
+[1.683s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(detect_sign)
+[1.683s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/package.ps1'
+[1.684s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/package.dsv'
+[1.684s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/package.sh'
+[1.684s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/package.bash'
+[1.685s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/detect_sign/package.zsh'
+[1.685s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/share/colcon-core/packages/detect_sign)
+[1.686s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level' for CMake module files
+[1.687s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_level' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_level build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_level/install.log --single-version-externally-managed install_data
+[1.687s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level' for CMake config files
+[1.687s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib'
+[1.687s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/bin'
+[1.687s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/pkgconfig/detect_level.pc'
+[1.687s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/lib/python3.10/site-packages'
+[1.687s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect_level', 'pythonpath')
+[1.688s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/pythonpath.ps1'
+[1.689s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/pythonpath.dsv'
+[1.690s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/hook/pythonpath.sh'
+[1.690s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/bin'
+[1.690s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(detect_level)
+[1.690s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/package.ps1'
+[1.691s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/package.dsv'
+[1.691s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/package.sh'
+[1.691s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/package.bash'
+[1.691s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/detect_level/package.zsh'
+[1.691s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_level/share/colcon-core/packages/detect_level)
+[1.692s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light' for CMake module files
+[1.692s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/traffic_light build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/install.log --single-version-externally-managed install_data
+[1.692s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light' for CMake config files
+[1.693s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib'
+[1.693s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/bin'
+[1.693s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/pkgconfig/traffic_light.pc'
+[1.693s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages'
+[1.693s] Level 1:colcon.colcon_core.shell:create_environment_hook('traffic_light', 'pythonpath')
+[1.693s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/pythonpath.ps1'
+[1.693s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/pythonpath.dsv'
+[1.693s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/hook/pythonpath.sh'
+[1.694s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/bin'
+[1.694s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(traffic_light)
+[1.694s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/package.ps1'
+[1.694s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/package.dsv'
+[1.694s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/package.sh'
+[1.695s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/package.bash'
+[1.695s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/traffic_light/package.zsh'
+[1.695s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/share/colcon-core/packages/traffic_light)
+[1.695s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow' for CMake module files
+[1.696s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/line_follow' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/line_follow build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/line_follow/install.log --single-version-externally-managed install_data
+[1.696s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow' for CMake config files
+[1.696s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib'
+[1.696s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/bin'
+[1.696s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/pkgconfig/line_follow.pc'
+[1.696s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/lib/python3.10/site-packages'
+[1.696s] Level 1:colcon.colcon_core.shell:create_environment_hook('line_follow', 'pythonpath')
+[1.696s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/pythonpath.ps1'
+[1.697s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/pythonpath.dsv'
+[1.697s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/hook/pythonpath.sh'
+[1.697s] Level 1:colcon.colcon_core.environment:checking '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/bin'
+[1.697s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(line_follow)
+[1.697s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/package.ps1'
+[1.698s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/package.dsv'
+[1.698s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/package.sh'
+[1.698s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/package.bash'
+[1.698s] INFO:colcon.colcon_core.shell:Creating package script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/line_follow/package.zsh'
+[1.698s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/line_follow/share/colcon-core/packages/line_follow)
+[1.698s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.699s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.699s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.699s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.704s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.704s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.704s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.710s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.711s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/local_setup.ps1'
+[1.712s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/_local_setup_util_ps1.py'
+[1.712s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/setup.ps1'
+[1.713s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/local_setup.sh'
+[1.713s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/_local_setup_util_sh.py'
+[1.714s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/setup.sh'
+[1.714s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/local_setup.bash'
+[1.714s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/setup.bash'
+[1.715s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/local_setup.zsh'
+[1.715s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/setup.zsh'

@@ -128,7 +128,7 @@ class DetectSign(Node):
         elif self.sub_image_type == "raw":
             cv_image_input = self.cvBridge.imgmsg_to_cv2(image_msg, "bgr8")
 
-        MIN_MATCH_COUNT = 6      # 更改参数调节
+        MIN_MATCH_COUNT = 5      # 更改参数调节
         MIN_MSE_DECISION = 50000
 
         # find the keypoints and descriptors with SIFT
@@ -195,7 +195,7 @@ class DetectSign(Node):
 
                 self.pub_traffic_sign.publish(msg_sign)
 
-                print("TrafficSign 3")
+                self.get_logger().info("TrafficSign 3")
 
                 image_out_num = 3
 
@@ -259,6 +259,8 @@ class DetectSign(Node):
                             flags = 2)
 
             final3 = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None,**draw_params3)
+            cv2.imshow('Matches', final3)
+            cv2.waitKey(3)
 
             if self.pub_image_type == "compressed":
                 # publishes traffic sign image in compressed type
