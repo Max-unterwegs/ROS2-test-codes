@@ -1,3 +1,0 @@
-[console_scripts]
-line_follow = line_follow.line_follow:main
-
