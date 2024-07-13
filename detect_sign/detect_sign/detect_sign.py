@@ -59,7 +59,6 @@ class DetectSign(Node):
         self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
         self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
         self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
-        self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
         self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
@@ -143,7 +142,7 @@ class DetectSign(Node):
         elif self.sub_image_type == "raw":
             cv_image_input = self.cvBridge.imgmsg_to_cv2(image_msg, "bgr8")
 
-        MIN_MATCH_COUNT = 5      # 更改参数调节
+        MIN_MATCH_COUNT = 7      # 更改参数调节
         MIN_MSE_DECISION = 50000
 
         # find the keypoints and descriptors with SIFT
@@ -185,7 +184,7 @@ class DetectSign(Node):
         for m,n in matches3:
             if m.distance < 0.7*n.distance:
                 good3.append(m)
-        image_match = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None)  ## 使用 drawMatches 函数绘制匹配的关键点
+        # image_match = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None)  ## 使用 drawMatches 函数绘制匹配的关键点
         print(len(good3))
         self.get_logger().info("len(good3):%d" %len(good3))
         if len(good3)> MIN_MATCH_COUNT:
