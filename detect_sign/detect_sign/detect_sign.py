@@ -59,7 +59,7 @@ class DetectSign(Node):
         self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
         self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
         self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
-        
+        self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
         self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
@@ -78,11 +78,12 @@ class DetectSign(Node):
         
     def control_parking_callback(self, msg):
         if(msg.data == 1 ):
-            print('Parking')
-            self.parking_signal = 1 # //* 1 表示正在停车
-        else:
-            self.parking_signal = 0 #//* 0 表示停车完成
-            # self.paring_feedback.publish(UInt8(data=1))
+            pass
+        #     print('Parking')
+        #     self.parking_signal = 1 # //* 1 表示正在停车
+        # else:
+        #     self.parking_signal = 0 #//* 0 表示停车完成
+        #     # self.paring_feedback.publish(UInt8(data=1))
 
     def fnPreproc(self):
         # Initiate SIFT detector
@@ -215,9 +216,12 @@ class DetectSign(Node):
                 msg_parking.data = 0
                 self.start_parking.publish(msg_parking)
                 # //*直到停车完毕
-                if(self.parking_signal == 1):
+                if(self.parking_signal == 0):
                     msg_parking.data = 1
                     self.start_parking.publish(msg_parking)
+                    msg_pub_max_vel = Float64()
+                    msg_pub_max_vel.data = 0.03
+                    self.pub_max_vel.publish(msg_pub_max_vel)  
                     self.get_logger().info("Parking")
                     os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.25,max_translation_speed: 3.0}"')
                     # os.system('sleep 15')
@@ -230,7 +234,6 @@ class DetectSign(Node):
                     os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
                     msg_pub_max_vel.data = 0.20
                     self.pub_max_vel.publish(msg_pub_max_vel)
-
                     self.parking_signal = 1 
 
 
