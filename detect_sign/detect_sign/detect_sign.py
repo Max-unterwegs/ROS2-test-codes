@@ -218,8 +218,8 @@ class DetectSign(Node):
                 # //*直到停车完毕
                 if(self.parking_signal == 0):
 
-                    msg_parking.data = 1
-                    self.start_parking.publish(msg_parking)
+                    # msg_parking.data = 1
+                    # self.start_parking.publish(msg_parking)
                     msg_pub_max_vel = Float64()
                     msg_pub_max_vel.data = 0.03
                     self.pub_max_vel.publish(msg_pub_max_vel)  
