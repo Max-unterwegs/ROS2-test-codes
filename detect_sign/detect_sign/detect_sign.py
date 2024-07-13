@@ -97,7 +97,7 @@ class DetectSign(Node):
         self.sift = cv2.SIFT_create()
 
         #dir_path储存了图片文件的目录
-        dir_path = "/home/liu/ros/rosTest2/src/parking_picture"
+        dir_path = "/home/liu/ros/rosTest2/parking_picture"
 
         # print(dir_path)
         # print(dir_path+ '/parking_not_allowed.png')
