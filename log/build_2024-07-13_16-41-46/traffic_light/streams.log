@@ -1,0 +1,21 @@
+[1.669s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/traffic_light build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/install.log --single-version-externally-managed install_data
+[1.841s] running egg_info
+[1.842s] writing ../build/traffic_light/traffic_light.egg-info/PKG-INFO
+[1.842s] writing dependency_links to ../build/traffic_light/traffic_light.egg-info/dependency_links.txt
+[1.842s] writing entry points to ../build/traffic_light/traffic_light.egg-info/entry_points.txt
+[1.842s] writing requirements to ../build/traffic_light/traffic_light.egg-info/requires.txt
+[1.842s] writing top-level names to ../build/traffic_light/traffic_light.egg-info/top_level.txt
+[1.845s] reading manifest file '../build/traffic_light/traffic_light.egg-info/SOURCES.txt'
+[1.846s] writing manifest file '../build/traffic_light/traffic_light.egg-info/SOURCES.txt'
+[1.846s] running build
+[1.846s] running build_py
+[1.846s] running install
+[1.847s] running install_lib
+[1.848s] running install_data
+[1.848s] running install_egg_info
+[1.851s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages/traffic_light-0.0.0-py3.10.egg-info' (and everything under it)
+[1.851s] Copying ../build/traffic_light/traffic_light.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages/traffic_light-0.0.0-py3.10.egg-info
+[1.852s] running install_scripts
+[1.891s] Installing traffic_light script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/traffic_light
+[1.892s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/install.log'
+[1.971s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/traffic_light' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/traffic_light/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/traffic_light build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/traffic_light/install.log --single-version-externally-managed install_data

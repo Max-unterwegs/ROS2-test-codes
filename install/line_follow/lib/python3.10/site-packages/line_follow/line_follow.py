@@ -64,6 +64,18 @@ class LineFollower(Node):
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+<<<<<<< Updated upstream
+=======
+    #self.parking_run = self.create_subscription(UInt8,'/control/parking',self.con_parking_run,QoSProfile(depth=1))
+    self.nofindcounter=0
+    self.maxmax = 0.12
+    self.status_i=0
+    self.status_s=[1 ,2 ,2 ,1]
+    #self.parkingstart=0
+  # def con_parking_run(self, msg):
+  #   #self.get_logger().info("parking_vel:%lf" % (self.maxmax))
+  #   self.parkingstart = msg.data
+>>>>>>> Stashed changes
   def con_run(self, msg):
     self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
@@ -142,6 +154,29 @@ class LineFollower(Node):
       # END CONTROL
     else:
       self.get_logger().info("没有发现线存在,请调节hsv值")
+<<<<<<< Updated upstream
+=======
+      self.nofindcounter+=1
+      if self.nofindcounter % 60 == 0 and self.status_s[self.status_i] == 2 and self.maxmax > 0.05:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z+1.0")
+         self.twist.angular.z = 2.0
+         self.twist.linear.x = 0.0
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         
+      elif self.nofindcounter %60 == 0 and self.status_s[self.status_i] == 1 and self.maxmax > 0.05:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z-1.0")
+         self.twist.angular.z = -2.0
+         self.twist.linear.x = 0.0
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         
+         
+      
+      
+>>>>>>> Stashed changes
     cv2.resize(mask,(640,480))
     #cv2.imshow("mask", cv2.resize(mask,(500,500),interpolation=cv2.INTER_CUBIC))
     #cv2.resizeWindow("mask", 500, 500)

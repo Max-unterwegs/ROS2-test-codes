@@ -1,0 +1,23 @@
+[2.074s] Invoking command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_sign build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/install.log --single-version-externally-managed install_data
+[2.285s] running egg_info
+[2.286s] writing ../build/detect_sign/detect_sign.egg-info/PKG-INFO
+[2.286s] writing dependency_links to ../build/detect_sign/detect_sign.egg-info/dependency_links.txt
+[2.286s] writing entry points to ../build/detect_sign/detect_sign.egg-info/entry_points.txt
+[2.286s] writing requirements to ../build/detect_sign/detect_sign.egg-info/requires.txt
+[2.286s] writing top-level names to ../build/detect_sign/detect_sign.egg-info/top_level.txt
+[2.288s] reading manifest file '../build/detect_sign/detect_sign.egg-info/SOURCES.txt'
+[2.288s] writing manifest file '../build/detect_sign/detect_sign.egg-info/SOURCES.txt'
+[2.288s] running build
+[2.288s] running build_py
+[2.288s] copying detect_sign/detect_sign.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build/lib/detect_sign
+[2.289s] running install
+[2.289s] running install_lib
+[2.290s] copying /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build/lib/detect_sign/detect_sign.py -> /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages/detect_sign
+[2.291s] running install_data
+[2.291s] running install_egg_info
+[2.292s] removing '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages/detect_sign-0.0.0-py3.10.egg-info' (and everything under it)
+[2.292s] Copying ../build/detect_sign/detect_sign.egg-info to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages/detect_sign-0.0.0-py3.10.egg-info
+[2.293s] running install_scripts
+[2.309s] Installing detect_sign script to /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/detect_sign
+[2.309s] writing list of installed files to '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/install.log'
+[2.336s] Invoked command in '/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/detect_sign' returned '0': PYTHONPATH=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/prefix_override:/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/install/detect_sign/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/detect_sign build --build-base /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/build install --record /home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/build/detect_sign/install.log --single-version-externally-managed install_data

@@ -216,6 +216,23 @@ class DetectSign(Node):
                     msg_parking.data = 1
                     self.start_parking.publish(msg_parking)
                     self.get_logger().info("Parking")
+<<<<<<< Updated upstream
+=======
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.25,max_translation_speed: 3.0}"')
+                    # os.system('sleep 15')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.5,max_translation_speed: 3.0}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: 3.14,max_rotation_speed: 0.9}"')
+                    # os.system('sleep 2')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
+                    msg_pub_max_vel.data = 0.20
+                    self.pub_max_vel.publish(msg_pub_max_vel)
+
+                    self.parking_signal = 1 
+
+>>>>>>> Stashed changes
 
                 image_out_num = 3
 
