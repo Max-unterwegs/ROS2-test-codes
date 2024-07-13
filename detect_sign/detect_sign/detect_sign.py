@@ -59,6 +59,7 @@ class DetectSign(Node):
         self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
         self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
         self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
+        
         self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
@@ -95,7 +96,7 @@ class DetectSign(Node):
         self.sift = cv2.SIFT_create()
 
         #dir_path储存了图片文件的目录
-        dir_path = "/home/liu/ros/rosTest2/parking_picture"
+        dir_path = "/home/liu/ros/rosTest2/src/parking_picture"
 
         # print(dir_path)
         # print(dir_path+ '/parking_not_allowed.png')
