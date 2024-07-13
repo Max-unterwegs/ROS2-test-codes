@@ -19,17 +19,18 @@ class control(Node):
 
     def control_parking_callback(self, msg):
         if(msg.data == 0 and self.parkinng_signal == 0):
-            print('Parking')
-            self.paring_feedback.publish(UInt8(data=1))  # //* 1 表示正在停车
-            os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.5,max_translation_speed: 0.3}"')
-            os.system('ros2 action send_goal /drive_angle irobot_create_msgs/action/DriveAngle "{angle:-1.57,max_rotation_speed: 0.3}"')
-            os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.5,max_translation_speed: 0.3}"')
-            os.system('sleep 2')
-            os.system('ros2 action send_goal /drive_angle irobot_create_msgs/action/DriveAngle "{angle:3.14,max_rotation_speed: 0.3}"')
-            os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.2,max_translation_speed: 0.3}"')
-            self.get_logger().info("Parking completed!!")
-            self.parking_signal = 1
-            self.paring_feedback.publish(UInt8(data=0))  # //* 0 表示停车完成
+            pass
+            # print('Parking')
+            # self.paring_feedback.publish(UInt8(data=1))  # //* 1 表示正在停车
+            # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.5,max_translation_speed: 0.3}"')
+            # os.system('ros2 action send_goal /drive_angle irobot_create_msgs/action/DriveAngle "{angle:-1.57,max_rotation_speed: 0.3}"')
+            # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.5,max_translation_speed: 0.3}"')
+            # os.system('sleep 2')
+            # os.system('ros2 action send_goal /drive_angle irobot_create_msgs/action/DriveAngle "{angle:3.14,max_rotation_speed: 0.3}"')
+            # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance:0.2,max_translation_speed: 0.3}"')
+            # self.get_logger().info("Parking completed!!")
+            # self.parking_signal = 1
+            # self.paring_feedback.publish(UInt8(data=0))  # //* 0 表示停车完成
             
 
 def main():
