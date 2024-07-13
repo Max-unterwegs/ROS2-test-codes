@@ -1,3 +1,0 @@
-[console_scripts]
-detect_sign = detect_sign.detect_sign:main
-

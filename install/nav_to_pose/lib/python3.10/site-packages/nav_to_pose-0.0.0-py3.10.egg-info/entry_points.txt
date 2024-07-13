@@ -1,3 +1,0 @@
-[console_scripts]
-nav_to_pose = nav_to_pose.nav_to_pose:main
-

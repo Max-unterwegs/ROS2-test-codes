@@ -195,7 +195,7 @@ class DetectSign(Node):
             M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
             matchesMask3 = mask.ravel().tolist()
 
-            # mse = self.fnCalcMSE(src_pts, dst_pts)
+            mse = self.fnCalcMSE(src_pts, dst_pts)
             # mse_text = "MSE: {:.2f}".format(mse) #将 MSE 转换为字符串
             # 使用 putText 函数将 MSE 写在图像上
             # cv2.putText(image_match, mse_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
