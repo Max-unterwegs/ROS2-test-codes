@@ -27,6 +27,7 @@ import math
 import os
 from std_msgs.msg import UInt8, Float64
 import cv2
+from std_msgs.msg import UInt8, Float64
 from enum import Enum
 from std_msgs.msg import UInt8
 from sensor_msgs.msg import Image, CompressedImage
@@ -96,7 +97,7 @@ class DetectSign(Node):
         self.sift = cv2.SIFT_create()
 
         #dir_path储存了图片文件的目录
-        dir_path = "/home/max-unterwegs/ros2test/src/parking_picture"
+        dir_path = "/home/liu/ros/rosTest2/src/parking_picture"
 
         # print(dir_path)
         # print(dir_path+ '/parking_not_allowed.png')
@@ -184,7 +185,7 @@ class DetectSign(Node):
         for m,n in matches3:
             if m.distance < 0.7*n.distance:
                 good3.append(m)
-        image_match = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None)  ## 使用 drawMatches 函数绘制匹配的关键点
+        # image_match = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None)  ## 使用 drawMatches 函数绘制匹配的关键点
         print(len(good3))
         self.get_logger().info("len(good3):%d" %len(good3))
         if len(good3)> MIN_MATCH_COUNT:
@@ -216,13 +217,14 @@ class DetectSign(Node):
                 # self.start_parking.publish(msg_parking)
                 # //*直到停车完毕
                 if(self.parking_signal == 0):
-                    # msg_parking.data = 1
-                    # self.start_parking.publish(msg_parking)
+
+                    msg_parking.data = 1
+                    self.start_parking.publish(msg_parking)
                     msg_pub_max_vel = Float64()
                     msg_pub_max_vel.data = 0.03
-                    self.pub_max_vel.publish(msg_pub_max_vel)
+                    self.pub_max_vel.publish(msg_pub_max_vel)  
                     self.get_logger().info("Parking")
-                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.2,max_translation_speed: 3.0}"')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.25,max_translation_speed: 3.0}"')
                     # os.system('sleep 15')
                     os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
                     # os.system('sleep 2')
