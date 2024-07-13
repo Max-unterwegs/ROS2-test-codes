@@ -26,6 +26,7 @@ import numpy as np
 import math
 import os
 import cv2
+from std_msgs.msg import UInt8, Float64
 from enum import Enum
 from std_msgs.msg import UInt8
 from sensor_msgs.msg import Image, CompressedImage
@@ -57,6 +58,7 @@ class DetectSign(Node):
         self.pub_traffic_sign = self.create_publisher(UInt8, '/detect/traffic_sign', QoSProfile(depth=1))
         self.start_parking = self.create_publisher(UInt8, '/control/parking', QoSProfile(depth=1))  # //*发布停车信号
         self.parking_sign = self.create_subscription(UInt8, '/control/parking_feedback', self.control_parking_callback, QoSProfile(depth=1))  # //*订阅停车信号
+        self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
         self.parking_signal = 0
 
         if self.pub_image_type == "compressed":
@@ -216,8 +218,6 @@ class DetectSign(Node):
                     msg_parking.data = 1
                     self.start_parking.publish(msg_parking)
                     self.get_logger().info("Parking")
-<<<<<<< Updated upstream
-=======
                     os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.25,max_translation_speed: 3.0}"')
                     # os.system('sleep 15')
                     os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
@@ -232,7 +232,6 @@ class DetectSign(Node):
 
                     self.parking_signal = 1 
 
->>>>>>> Stashed changes
 
                 image_out_num = 3
 
