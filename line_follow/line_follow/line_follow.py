@@ -9,7 +9,7 @@ from rclpy.qos import QoSProfile
 import math
 bridge = CvBridge()  # 转换为ros2的消息类型(imgmsg)的工具
 import numpy as np
-
+import time
 class LineFollower(Node):
   def __init__(self):
     super().__init__('line_follow')
@@ -23,11 +23,11 @@ class LineFollower(Node):
     self.max_detect_level = 0.0
     self.colorLower = None
     self.colorUpper = None
-    self.declare_parameter("~h_min", 20)
-    self.declare_parameter("~h_max", 50)
-    self.declare_parameter("~s_min", 50)
+    self.declare_parameter("~h_min", 25)
+    self.declare_parameter("~h_max", 55)
+    self.declare_parameter("~s_min", 40)
     self.declare_parameter("~s_max", 255)
-    self.declare_parameter("~v_min", 80)
+    self.declare_parameter("~v_min", 152)
     self.declare_parameter("~v_max", 255)
     self.declare_parameter("~run", 0)
     self.declare_parameter("~x_speed_10", 5)
@@ -64,6 +64,15 @@ class LineFollower(Node):
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+    #self.parking_run = self.create_subscription(UInt8,'/control/parking',self.con_parking_run,QoSProfile(depth=1))
+    self.nofindcounter=0
+    self.maxmax = 0.12
+    self.status_i=0
+    self.status_s=[1 ,2 ,2 ,1]
+    #self.parkingstart=0
+  # def con_parking_run(self, msg):
+  #   #self.get_logger().info("parking_vel:%lf" % (self.maxmax))
+  #   self.parkingstart = msg.data
   def con_run(self, msg):
     self.get_logger().info("12345678%lf" %(self.maxmax))
     self.maxmax = msg.data #速度 
@@ -131,6 +140,8 @@ class LineFollower(Node):
       else: 
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
+      self.nofindcounter = 0
+      self.status_i=0
         #   self.angleBuffer.append(err)
         # if len(self.angleBuffer) > 2:
      #    self.twist.angular.z = -float(self.angleBuffer[0]) / 100
@@ -142,6 +153,26 @@ class LineFollower(Node):
       # END CONTROL
     else:
       self.get_logger().info("没有发现线存在,请调节hsv值")
+      self.nofindcounter+=1
+      if self.nofindcounter % 60 == 0 and self.status_s[self.status_i] == 2 and self.maxmax > 0.05:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z+1.0")
+         self.twist.angular.z = 2.0
+         self.twist.linear.x = 0.0
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         
+      elif self.nofindcounter %60 == 0 and self.status_s[self.status_i] == 1 and self.maxmax > 0.05:
+         self.status_i = (self.status_i+1)%4
+         self.get_logger().info("@@@z-1.0")
+         self.twist.angular.z = -2.0
+         self.twist.linear.x = 0.0
+         if self.run == 1:
+           self.cmd_vel_pub.publish(self.twist)
+         
+         
+      
+      
     cv2.resize(mask,(640,480))
     #cv2.imshow("mask", cv2.resize(mask,(500,500),interpolation=cv2.INTER_CUBIC))
     #cv2.resizeWindow("mask", 500, 500)

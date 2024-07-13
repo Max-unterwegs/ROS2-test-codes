@@ -25,6 +25,7 @@ from rclpy.qos import QoSProfile
 import numpy as np
 import math
 import os
+from std_msgs.msg import UInt8, Float64
 import cv2
 from std_msgs.msg import UInt8, Float64
 from enum import Enum
@@ -211,11 +212,12 @@ class DetectSign(Node):
 
                 self.get_logger().info("TrafficSign 3")
                 # //*接下来是发布停车信号
-                msg_parking = UInt8()
-                msg_parking.data = 0
-                self.start_parking.publish(msg_parking)
+                # msg_parking = UInt8()
+                # msg_parking.data = 0
+                # self.start_parking.publish(msg_parking)
                 # //*直到停车完毕
                 if(self.parking_signal == 0):
+
                     msg_parking.data = 1
                     self.start_parking.publish(msg_parking)
                     msg_pub_max_vel = Float64()
@@ -233,6 +235,7 @@ class DetectSign(Node):
                     os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
                     msg_pub_max_vel.data = 0.20
                     self.pub_max_vel.publish(msg_pub_max_vel)
+
                     self.parking_signal = 1 
 
 
@@ -298,8 +301,8 @@ class DetectSign(Node):
                             flags = 2)
 
             final3 = cv2.drawMatches(cv_image_input,kp1,self.img3,self.kp3,good3,None,**draw_params3)
-            # cv2.imshow('Matches', final3)
-            # cv2.waitKey(3)
+            cv2.imshow('Matches', final3)
+            cv2.waitKey(3)
 
             if self.pub_image_type == "compressed":
                 # publishes traffic sign image in compressed type
