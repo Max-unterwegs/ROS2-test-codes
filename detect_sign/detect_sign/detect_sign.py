@@ -97,7 +97,7 @@ class DetectSign(Node):
         self.sift = cv2.SIFT_create()
 
         #dir_path储存了图片文件的目录
-        dir_path = "/home/liu/ros/rosTest2/parking_picture"
+        dir_path = "/home/ryc/town_ws/parking_picture"
 
         # print(dir_path)
         # print(dir_path+ '/parking_not_allowed.png')
@@ -227,16 +227,16 @@ class DetectSign(Node):
                     # 向前走一段距离
                     os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 2.0,max_translation_speed: 0.7}"')
                     # 倒车入库
-                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: -1.57,radius: 0.6,translate_direction: -1,max_translation_speed: 1.0}"')
+                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.6,translate_direction: -1,max_translation_speed: 1.0}"')
                     # 转向
                     # os.system('sleep 2')
                     os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
                     # os.system('sleep 2')
                     # 向前走一段距离
-                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.5,max_translation_speed: 1.0}"')
+                    # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.5,max_translation_speed: 1.0}"')
                     # os.system('sleep 2')
                     # 转个弯
-                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.2,translate_direction: 1,max_translation_speed: 1.0}"')
+                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.4,translate_direction: 1,max_translation_speed: 1.0}"')
                     msg_pub_max_vel.data = 0.20
                     self.pub_max_vel.publish(msg_pub_max_vel)
 
