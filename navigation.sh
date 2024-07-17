@@ -1,6 +1,6 @@
 #!/bin/bash
 {
-	gnome-terminal --tab "XXD_ros" -- bash -c "ros2 launch turtlebot4_navigation localization.launch.py map:=/home/liu/ros/rosAndGit/GitHub/ROS2-test-codes-von-M-U/map.yaml;exec bash"
+	gnome-terminal --tab "XXD_ros" -- bash -c "ros2 launch turtlebot4_navigation localization.launch.py map:=/home/max-unterwegs/ros2test/src/map.yaml;exec bash"
  
 }&
  
