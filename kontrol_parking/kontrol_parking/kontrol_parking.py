@@ -20,7 +20,7 @@ class ControlParking(Node):
         self.pub_cmd_vel = self.create_publisher(Twist, '/cmd_vel', QoSProfile(depth=1))
         self.pub_parking_finished = self.create_publisher(UInt8, '/control/parking_finished', QoSProfile(depth=1))
         self.pub_parking_start = self.create_publisher(UInt8, '/control/parking_start', QoSProfile(depth=1))
-
+        self.pub_max_vel = self.create_publisher(Float64, '/control/max_vel', QoSProfile(depth=1))
 
         self.pub_parking_lot_return = self.create_publisher(UInt8, '/detect/parking_lot_stamped', QoSProfile(depth=1))
 
@@ -165,7 +165,9 @@ class ControlParking(Node):
             self.get_logger().info("idle (if finished to go out from parking lot)")
 
             self.fnStop()
-
+            msg_pub_max_vel = Float64()
+            msg_pub_max_vel.data = 0.20
+            self.pub_max_vel.publish(msg_pub_max_vel)
             msg_parking_finished = UInt8()
             msg_parking_finished.data = 1
             self.pub_parking_finished.publish(msg_parking_finished)
