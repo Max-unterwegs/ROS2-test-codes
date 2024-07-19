@@ -137,7 +137,8 @@ class DetectTrafficLight(Node):
         cv2.createTrackbar('saturation_green_h', 'light', self.saturation_green_h, 255, self.set_green_s_max)
         cv2.createTrackbar('lightness_green_l', 'light', self.lightness_green_l, 255, self.set_green_v_min)
         cv2.createTrackbar('lightness_green_h', 'light', self.lightness_green_h, 255, self.set_green_v_max)
-
+        self.islampegrun = False
+        self.islamperot = False
 
         #self.get_logger().info('start create ende')
         #rospy.sleep(1)
@@ -295,8 +296,11 @@ class DetectTrafficLight(Node):
             self.get_logger().info("11111111")
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.12
-            self.pub_max_vel.publish(msg_pub_max_vel)
+            if not(self.islampegrun == True and self.islamperot == True):
+                self.pub_max_vel.publish(msg_pub_max_vel)
             self.get_logger().info("GREEN")
+            if self.islamperot == True:
+                self.islampegrun = True
             cv2.putText(self.cv_image,"GREEN", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (80, 255, 0))
 
         # if self.yellow_count > 12:
@@ -310,8 +314,10 @@ class DetectTrafficLight(Node):
             #self.red_count = 0
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.03
-            self.pub_max_vel.publish(msg_pub_max_vel)
+            if not(self.islampegrun == True and self.islamperot == True):
+                self.pub_max_vel.publish(msg_pub_max_vel)
             self.get_logger().info("RED")
+            self.islamperot = True
             cv2.putText(self.cv_image,"RED", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
 
         if self.stop_count > 8:
