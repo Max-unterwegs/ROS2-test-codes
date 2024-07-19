@@ -94,7 +94,8 @@ class DetectLevel(Node):
         self.lightness_red_l = self.get_parameter('~detect/level/red/lightness_l').get_parameter_value().integer_value
         self.lightness_red_h = self.get_parameter('~detect/level/red/lightness_h').get_parameter_value().integer_value
 
-        self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
+        #self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
+        self.is_calibration_mode = False
         # //? server?? what is this?
         #if self.is_calibration_mode == True:
         #    srv_detect_lane = Server(DetectLevelParamsConfig, self.cbGetDetectLevelParam)

@@ -63,7 +63,8 @@ class DetectTrafficLight(Node):
         self.lightness_green_h = self.get_parameter('~detect/lane/green/lightness_h').get_parameter_value().integer_value
 
         self.declare_parameter("~is_detection_calibration_mode", True)
-        self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
+        #self.is_calibration_mode = self.get_parameter("~is_detection_calibration_mode").get_parameter_value().bool_value
+        self.is_calibration_mode = False
         #if self.is_calibration_mode == True:
         #    srv_detect_lane = Server(DetectTrafficLightParamsConfig, self.cbGetDetectTrafficLightParam)
 

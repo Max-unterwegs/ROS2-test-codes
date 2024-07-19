@@ -118,8 +118,8 @@ class LineFollower(Node):
     h, w, d = image.shape
     search_top = 9 * h // 10
     search_bot = h
-    # mask[0:search_top, 0:w] = 0
-    # mask[search_bot:h, 0:w] = 0
+    mask[0:search_top, 0:w] = 0
+    mask[search_bot:h, 0:w] = 0
     M = cv2.moments(mask)
     if M['m00'] > 0:
       cx = int(M['m10'] / M['m00'])
