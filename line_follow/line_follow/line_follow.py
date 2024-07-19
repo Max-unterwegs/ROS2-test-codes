@@ -21,6 +21,7 @@ class LineFollower(Node):
     self.angleBuffer = []
     self.maxmax = 0.0
     self.max_detect_level = 0.0
+    self.max_brightness = 0.0
     self.colorLower = None
     self.colorUpper = None
     self.declare_parameter("~h_min", 32)
@@ -35,6 +36,7 @@ class LineFollower(Node):
     self.declare_parameter("~z_speed", 90)
     self.declare_parameter("~zwx_10", 5)
     self.declare_parameter("~err_grenze_da", 7)
+    self.declare_parameter("~brightness", 40.0)
     self.h_min = self.get_parameter("~h_min").get_parameter_value().integer_value
     self.h_max = self.get_parameter("~h_max").get_parameter_value().integer_value
     self.s_min = self.get_parameter("~s_min").get_parameter_value().integer_value
@@ -47,6 +49,7 @@ class LineFollower(Node):
     self.z_speed = self.get_parameter("~z_speed").get_parameter_value().integer_value
     self.zwx_10 = self.get_parameter("~zwx_10").get_parameter_value().integer_value
     self.err_grenze_da = self.get_parameter("~err_grenze_da").get_parameter_value().integer_value
+    self.brightness = self.get_parameter("~brightness").get_parameter_value().double_value
     cv2.namedWindow("Parameters")
     #cv2.resizeWindow("Parameters", 640, 320);
     cv2.moveWindow("Parameters",20,20)
@@ -62,12 +65,14 @@ class LineFollower(Node):
     cv2.createTrackbar("z_speed", "Parameters", self.z_speed , 200, self.set_z_speed)
     cv2.createTrackbar("zwx_10", "Parameters", self.zwx_10 , 10, self.set_zwx_10)
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
+    cv2.createTrackbar("brightness", "Parameters", self.brightness , 100, self.set_brightness)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+    self.control_brightness_run = self.create_subscription(Float64,'/brightness',self.con_brightness_run,QoSProfile(depth=1))  # //*用于接收亮度值进而控制速度
     #self.parking_run = self.create_subscription(UInt8,'/control/parking',self.con_parking_run,QoSProfile(depth=1))
     self.nofindcounter=0
     self.maxmax = 0.12
-    self.status_i=0
+    self.status_i=0 # //*用于摆头的计数
     self.status_s=[1 ,2 ,2 ,1]
     #self.parkingstart=0
   # def con_parking_run(self, msg):
@@ -80,7 +85,9 @@ class LineFollower(Node):
   def con_detect_level_run(self, msg):
     self.get_logger().info("detectlevel_vel:%lf" % (self.max_detect_level))
     self.max_detect_level = msg.data
-
+  def con_brightness_run(self, msg):
+    # self.get_logger().info("brightness:%lf" % (self.max_brightness))
+    self.max_brightness = msg.data
   def set_h_min(self, pos):
     self.h_min = pos
   def set_h_max(self, pos):
@@ -105,11 +112,13 @@ class LineFollower(Node):
      self.zwx_10=pos
   def set_err_grenze_da(self, pos):
     self.err_grenze_da=pos
+  def set_brightness(self, pos):
+    self.brightness = pos
   def image_callback(self, msg):
     global bridge
     np_arr = np.frombuffer(msg.data,np.uint8) 
     self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-    image = np.copy(self.cv_image)
+    image = np.copy(self.cv_image) # //* 可能会比较费时
     #image = bridge.imgmsg_to_cv2(msg, 'bgr8')
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     self.colorLower = (self.h_min, self.s_min, self.v_min)
@@ -132,7 +141,7 @@ class LineFollower(Node):
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
       # self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
-      if(self.maxmax > 0.05 and self.max_detect_level> 0.05):
+      if(self.maxmax > 0.05 and self.max_detect_level> 0.05 and self.max_brightness > self.brightness):  # //*当前光照强度小于设定值时，停止运动
         if(abs(err)>self.err_grenze):
           self.twist.angular.z = -float(err) / self.z_speed
         if(abs(err)>self.err_grenze_da):
@@ -140,6 +149,10 @@ class LineFollower(Node):
       else: 
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
+         if self.max_brightness < self.brightness:
+            self.get_logger().info("亮度过低，检测为正在过隧道！")
+            # self.twist.angular.z = 0.0
+            # self.twist.linear.x = 0.0
       self.nofindcounter = 0
       self.status_i=0
         #   self.angleBuffer.append(err)
