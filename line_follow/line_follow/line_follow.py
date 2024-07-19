@@ -51,7 +51,7 @@ class LineFollower(Node):
     self.z_speed = self.get_parameter("~z_speed").get_parameter_value().integer_value
     self.zwx_10 = self.get_parameter("~zwx_10").get_parameter_value().integer_value
     self.err_grenze_da = self.get_parameter("~err_grenze_da").get_parameter_value().integer_value
-    self.brightness = self.get_parameter("~brightness").get_parameter_value().double_value
+    self.brightness = self.get_parameter("~brightness").get_parameter_value().integer_value
     cv2.namedWindow("Parameters")
     #cv2.resizeWindow("Parameters", 640, 320);
     cv2.moveWindow("Parameters",20,20)
