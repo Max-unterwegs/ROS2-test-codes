@@ -529,6 +529,9 @@ class DetectTrafficLight(Node):
               #      status = 5
             else:
                 status = 6
+            # 如果找到了匹配的颜色，可以提前结束循环
+            if status in [1, 3]:  # 或者包括2，如果检测黄色
+                break
 
         return status
 
