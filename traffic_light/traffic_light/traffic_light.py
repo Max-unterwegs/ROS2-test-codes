@@ -323,7 +323,8 @@ class DetectTrafficLight(Node):
         if self.stop_count > 8:
             msg_pub_max_vel = Float64()
             msg_pub_max_vel.data = 0.0
-            self.pub_max_vel.publish(msg_pub_max_vel)  
+            if not(self.islampegrun == True and self.islamperot == True):
+                self.pub_max_vel.publish(msg_pub_max_vel)  
             self.get_logger().info("STOP")
             self.off_traffic = True
             cv2.putText(self.cv_image,"STOP", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255))
