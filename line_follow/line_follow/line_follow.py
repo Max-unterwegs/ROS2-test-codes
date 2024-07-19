@@ -38,7 +38,7 @@ class LineFollower(Node):
     self.declare_parameter("~z_speed", 90)
     self.declare_parameter("~zwx_10", 5)
     self.declare_parameter("~err_grenze_da", 7)
-    self.declare_parameter("~brightness", 40.0)
+    self.declare_parameter("~brightness", 23)
     self.h_min = self.get_parameter("~h_min").get_parameter_value().integer_value
     self.h_max = self.get_parameter("~h_max").get_parameter_value().integer_value
     self.s_min = self.get_parameter("~s_min").get_parameter_value().integer_value
