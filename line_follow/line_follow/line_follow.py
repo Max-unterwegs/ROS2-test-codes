@@ -7,6 +7,8 @@ from rclpy.node import Node
 from cv_bridge import CvBridge, CvBridgeError
 from rclpy.qos import QoSProfile
 import math
+import time
+import threading
 bridge = CvBridge()  # 转换为ros2的消息类型(imgmsg)的工具
 import numpy as np
 import time
@@ -151,8 +153,20 @@ class LineFollower(Node):
          self.twist.linear.x = 0.0
          if self.max_brightness < self.brightness:
             self.get_logger().info("亮度过低，检测为正在过隧道！")
-            # self.twist.angular.z = 0.0
-            # self.twist.linear.x = 0.0
+            #这是亮度过低进行的操作
+            # 1.直行
+            self.twist.angular.z = 0.0
+            self.twist.linear.x = 1.0
+            running_cmd_vel(self.running, self.twist, 1)
+            # 2.转弯
+            self.twist.angular.z = 1.57  # 1.57是90度,1.57 rad/s
+            self.twist.linear.x = 1.57    # 加上直行实现转弯
+            running_cmd_vel(self.running, self.twist, 1)
+            # 3.直行
+            self.twist.angular.z = 0.0
+            self.twist.linear.x = 1.0
+            running_cmd_vel(self.running, self.twist, 1)
+            
       self.nofindcounter = 0
       self.status_i=0
         #   self.angleBuffer.append(err)
@@ -228,7 +242,47 @@ class LineFollower(Node):
         hor= np.hstack(imgArray)
         ver = hor
     return ver
+  
+  def running(self, twist, stop_event):
+    while not stop_event.is_set():
+      #这里直接发布运动指令
+      self.cmd_vel_pub(twist)
+      time.sleep(0.1)
+  
+  
 
+#这里声明一个线程事件，用于停止线程
+# stop_event = threading.Event()
+
+#这是一个继承自threading.Thread的类，用于实现线程的停止
+class StoppableThread(threading.Thread):
+    def __init__(self, target, *args, stop_event, **kwargs):
+        super().__init__(target=target, *args, **kwargs)
+        self.stop_event = stop_event
+
+    def stop(self):
+        self.stop_event.set()
+        
+    def start(self):
+        self.stop_event.clear()
+        super().start()
+
+# def running(Twist, sec):
+#   while not stop_event.is_set():
+#     #这里写你的代码
+#     time.sleep(0.1)
+
+#这是进程的启动函数
+def running_cmd_vel(function,twist,sec):
+    stop_event = threading.Event()  # Define the stop_event variable
+    t = StoppableThread(target=function, args=(twist, stop_event),stop_event=stop_event)
+    t.start()
+    time.sleep(sec)
+    if t.is_alive():
+        print("Stopping thread")
+        t.stop()
+    t.join()
+    print("Finished")  
 
 
 def main(args=None):
