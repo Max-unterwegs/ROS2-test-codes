@@ -25,7 +25,7 @@ class DetectTrafficLight(Node):
             )
         self.declare_parameter("~detect/lane/red/hue_l", 173, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/hue_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/red/saturation_l", 163, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/red/saturation_l", 140, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/saturation_h", 255, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/lightness_l", 84, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/red/lightness_h", 255, hsv_parameter_descriptor)
@@ -53,7 +53,7 @@ class DetectTrafficLight(Node):
         self.declare_parameter("~detect/lane/green/hue_h", 78, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/green/saturation_l", 130, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/green/saturation_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/green/lightness_l", 186, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/lightness_l", 224, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/green/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_green_l = self.get_parameter('~detect/lane/green/hue_l').get_parameter_value().integer_value
         self.hue_green_h = self.get_parameter('~detect/lane/green/hue_h').get_parameter_value().integer_value
@@ -299,12 +299,12 @@ class DetectTrafficLight(Node):
             self.get_logger().info("GREEN")
             cv2.putText(self.cv_image,"GREEN", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (80, 255, 0))
 
-        if self.yellow_count > 12:
-            msg_pub_max_vel = Float64()
-            msg_pub_max_vel.data = 0.06 if not self.off_traffic else 0.12
-            self.pub_max_vel.publish(msg_pub_max_vel)
-            self.get_logger().info("YELLOW")
-            cv2.putText(self.cv_image,"YELLOW", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 255))
+        # if self.yellow_count > 12:
+        #     msg_pub_max_vel = Float64()
+        #     msg_pub_max_vel.data = 0.06 if not self.off_traffic else 0.12
+        #     self.pub_max_vel.publish(msg_pub_max_vel)
+        #     self.get_logger().info("YELLOW")
+        #     cv2.putText(self.cv_image,"YELLOW", (self.point_col, self.point_low), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 255))
 
         if self.red_count > 3:
             #self.red_count = 0
@@ -475,55 +475,66 @@ class DetectTrafficLight(Node):
         return mask
 
     def fnFindCircleOfTrafficLight(self, mask, find_color):
+        #self.get_logger().info('[Detect Traffic Light] Find Circle of Traffic Light')
         status = 0
 
-        params = cv2.SimpleBlobDetector_Params()
+        params=cv2.SimpleBlobDetector_Params()
+        # Change thresholds
         params.minThreshold = 0
         params.maxThreshold = 255
+
+        # Filter by Area.
         params.filterByArea = True
         params.minArea = 50
         params.maxArea = 600
+
+        # Filter by Circularity
         params.filterByCircularity = True
         params.minCircularity = 0.6
+
+        # Filter by Convexity
         params.filterByConvexity = True
         params.minConvexity = 0.6
 
-        det = cv2.SimpleBlobDetector_create(params)
-        keypts = det.detect(mask)
-        frame = cv2.drawKeypoints(self.cv_image, keypts, np.array([]), (0,255,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        det=cv2.SimpleBlobDetector_create(params)
+        keypts=det.detect(mask)
+        frame=cv2.drawKeypoints(self.cv_image,keypts,np.array([]),(0,255,255),cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-        col1, col2, col3 = 180, 270, 305
-        low1, low2, low3 = 50, 170, 170
+        col1 = 180
+        col2 = 270
+        col3 = 305
 
-        if not keypts:
-            return status  # 如果没有检测到关键点，直接返回初始状态
-
-        for keypt in keypts:
-            self.point_col = int(keypt.pt[0])
-            self.point_low = int(keypt.pt[1])
-
-            # 如果需要位置检查，可以取消下面的注释
-            # if self.point_col > col1 and self.point_col < col2 and self.point_low > low1 and self.point_low < low2:
-            if True:
+        low1 = 50
+        low2 = 170
+        low3 = 170
+        
+        # if detected more than 1 light
+        for i in range(len(keypts)):
+            self.point_col = int(keypts[i].pt[0])
+            self.point_low = int(keypts[i].pt[1])
+            #print(self.point_col)
+            #print(self.point_low)
+            if True:#self.point_col > col1 and self.point_col < col2 and self.point_low > low1 and self.point_low < low2:
+                print(find_color)
                 if find_color == 'green':
                     status = 1
+            #    elif find_color == 'yellow':
+             #       status = 2
                 elif find_color == 'red':
                     status = 3
-                # 如果需要检测黄色，可以取消下面的注释
-                # elif find_color == 'yellow':
-                #     status = 2
+           # elif self.point_col > col2 and self.point_col < col3 and self.point_low > low1 and self.point_low < low3:
+              #  if find_color == 'red':
+              #      status = 4
+              #  elif find_color == 'green':
+              #      status = 5
             else:
                 status = 6
 
-            # 如果找到了匹配的颜色，可以提前结束循环
-            if status in [1, 3]:  # 或者包括2，如果检测黄色
-                break
-
-        # self.get_logger().debug(f'Detected {len(keypts)} potential traffic lights, status: {status}')
         return status
+
     def cbTrafficLightFinished(self, traffic_light_finished_msg):
-            #self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
-            self.is_traffic_light_finished = True
+        #self.get_logger().info('[Detect Traffic Light] Callback Traffic Light Finished')
+        self.is_traffic_light_finished = True
 
 
 

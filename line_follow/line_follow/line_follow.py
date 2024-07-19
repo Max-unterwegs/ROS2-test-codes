@@ -23,7 +23,7 @@ class LineFollower(Node):
     self.max_detect_level = 0.0
     self.colorLower = None
     self.colorUpper = None
-    self.declare_parameter("~h_min", 32)
+    self.declare_parameter("~h_min", 26)
     self.declare_parameter("~h_max", 55)
     self.declare_parameter("~s_min", 40)
     self.declare_parameter("~s_max", 255)
@@ -118,8 +118,8 @@ class LineFollower(Node):
     h, w, d = image.shape
     search_top = 9 * h // 10
     search_bot = h
-    mask[0:search_top, 0:w] = 0
-    mask[search_bot:h, 0:w] = 0
+    # mask[0:search_top, 0:w] = 0
+    # mask[search_bot:h, 0:w] = 0
     M = cv2.moments(mask)
     if M['m00'] > 0:
       cx = int(M['m10'] / M['m00'])
