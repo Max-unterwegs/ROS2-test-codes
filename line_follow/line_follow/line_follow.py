@@ -151,17 +151,17 @@ class LineFollower(Node):
       else: 
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
-         if self.max_brightness < self.brightness:
+         if self.max_brightness < self.brightness and self.run == 1:
             self.get_logger().info("亮度过低，检测为正在过隧道！")
             #这是亮度过低进行的操作
             # 1.直行
             self.twist.angular.z = 0.0
             self.twist.linear.x = 1.0
-            running_cmd_vel(self.running, self.twist, 1)
+            running_cmd_vel(self.running, self.twist, 2)
             # 2.转弯
-            self.twist.angular.z = 1.57  # 1.57是90度,1.57 rad/s
-            self.twist.linear.x = 1.57    # 加上直行实现转弯
-            running_cmd_vel(self.running, self.twist, 1)
+            self.twist.angular.z = -1.57  # 1.57是90度,1.57 rad/s
+            self.twist.linear.x = 0.0    # 加上直行实现转弯
+            running_cmd_vel(self.running, self.twist, 2)
             # 3.直行
             self.twist.angular.z = 0.0
             self.twist.linear.x = 1.0
@@ -247,7 +247,7 @@ class LineFollower(Node):
     while not stop_event.is_set():
       #这里直接发布运动指令
       self.cmd_vel_pub.publish(twist)
-      time.sleep(0.1)
+      time.sleep(1)
   
   
 

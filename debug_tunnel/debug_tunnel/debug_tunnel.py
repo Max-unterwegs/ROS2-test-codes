@@ -15,28 +15,28 @@ import time
 class Tunnel(Node):
     def __init__(self):
         super().__init__('debug_tunnel')
-        self.cmd_vel_pub = self.create_publisher(Twist, '/turtle1/cmd_vel', 5)
+        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 5)
         self.twist = Twist()
     def pub_cmd_vel(self):
         self.twist.angular.z = 0.0
         self.twist.linear.x = 1.0
-        # time.sleep(3)
-        running_cmd_vel(self.running, self.twist, 4)
+        time.sleep(1)
+        running_cmd_vel(self.running, self.twist, 2)
         # time.sleep(3)
         # 2.转弯
-        self.twist.angular.z = -1.45  # 1.57是90度,1.57 rad/s
+        self.twist.angular.z = -1.57  # 1.57是90度,1.57 rad/s
         self.twist.linear.x = 0.0    # 加上直行实现转弯
-        running_cmd_vel(self.running, self.twist, 1)
-        time.sleep(3)
+        running_cmd_vel(self.running, self.twist, 2)
+        # time.sleep(3)
         # 3.直行
         self.twist.angular.z = 0.0
         self.twist.linear.x = 1.0
-        running_cmd_vel(self.running, self.twist, 2)
+        running_cmd_vel(self.running, self.twist, 1)
     def running(self,twist, stop_event):
         while not stop_event.is_set():
         #这里直接发布运动指令
             self.cmd_vel_pub.publish(self.twist)
-            time.sleep(0.1)
+            time.sleep(1)
 
 class StoppableThread(threading.Thread):
     def __init__(self, target, *args, stop_event, **kwargs):
