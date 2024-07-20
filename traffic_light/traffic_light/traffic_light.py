@@ -49,11 +49,11 @@ class DetectTrafficLight(Node):
         self.lightness_yellow_l = self.get_parameter('~detect/lane/yellow/lightness_l').get_parameter_value().integer_value
         self.lightness_yellow_h = self.get_parameter('~detect/lane/yellow/lightness_h').get_parameter_value().integer_value
         
-        self.declare_parameter("~detect/lane/green/hue_l", 65, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/green/hue_h", 78, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/green/saturation_l", 130, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/green/saturation_h", 255, hsv_parameter_descriptor)
-        self.declare_parameter("~detect/lane/green/lightness_l", 186, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/hue_l", 81, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/hue_h", 121, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/saturation_l", 88, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/saturation_h", 183, hsv_parameter_descriptor)
+        self.declare_parameter("~detect/lane/green/lightness_l", 218, hsv_parameter_descriptor)
         self.declare_parameter("~detect/lane/green/lightness_h", 255, hsv_parameter_descriptor)
         self.hue_green_l = self.get_parameter('~detect/lane/green/hue_l').get_parameter_value().integer_value
         self.hue_green_h = self.get_parameter('~detect/lane/green/hue_h').get_parameter_value().integer_value

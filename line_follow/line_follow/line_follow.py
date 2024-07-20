@@ -26,10 +26,10 @@ class LineFollower(Node):
     self.max_brightness = 0.0
     self.colorLower = None
     self.colorUpper = None
-    self.declare_parameter("~h_min", 32)
+    self.declare_parameter("~h_min", 19)
     self.declare_parameter("~h_max", 55)
-    self.declare_parameter("~s_min", 40)
-    self.declare_parameter("~s_max", 255)
+    self.declare_parameter("~s_min", 66)
+    self.declare_parameter("~s_max", 133)
     self.declare_parameter("~v_min", 165)
     self.declare_parameter("~v_max", 255)
     self.declare_parameter("~run", 0)
@@ -246,7 +246,7 @@ class LineFollower(Node):
   def running(self, twist, stop_event):
     while not stop_event.is_set():
       #这里直接发布运动指令
-      self.cmd_vel_pub(twist)
+      self.cmd_vel_pub.publish(twist)
       time.sleep(0.1)
   
   
