@@ -224,19 +224,27 @@ class DetectSign(Node):
                     msg_pub_max_vel.data = 0.03
                     self.pub_max_vel.publish(msg_pub_max_vel)  
                     self.get_logger().info("Parking")
-                    # 向前走一段距离
-                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 2.0,max_translation_speed: 0.7}"')
-                    # 倒车入库
-                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.6,translate_direction: -1,max_translation_speed: 1.0}"')
-                    # 转向
-                    # os.system('sleep 2')
+                    # # 向前走一段距离
+                    # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 2.0,max_translation_speed: 0.7}"')
+                    # # 倒车入库
+                    # os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.6,translate_direction: -1,max_translation_speed: 1.0}"')
+                    # # 转向
+                    # # os.system('sleep 2')
+                    # os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
+                    # # os.system('sleep 2')
+                    # # 向前走一段距离
+                    # os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
+                    # # os.system('sleep 2')
+                    # # 转个弯
+                    # os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.3,translate_direction: 1,max_translation_speed: 1.0}"')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 1.6,max_translation_speed: 0.7}"')
                     os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
-                    # os.system('sleep 2')
-                    # 向前走一段距离
-                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.2,max_translation_speed: 1.0}"')
-                    # os.system('sleep 2')
-                    # 转个弯
-                    os.system('ros2 action send_goal /drive_arc irobot_create_msgs/action/DriveArc "{angle: 1.57,radius: 0.3,translate_direction: 1,max_translation_speed: 1.0}"')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.68,max_translation_speed: 0.7}"')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: 1.57,max_rotation_speed: 0.9}"')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.68,max_translation_speed: 0.7}"')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: 1.57,max_rotation_speed: 0.9}"')
+                    os.system('ros2 action send_goal /drive_distance irobot_create_msgs/action/DriveDistance "{distance: 0.68,max_translation_speed: 0.7}"')
+                    os.system('ros2 action send_goal /rotate_angle irobot_create_msgs/action/RotateAngle "{angle: -1.57,max_rotation_speed: 0.9}"')
                     msg_pub_max_vel.data = 0.20
                     self.pub_max_vel.publish(msg_pub_max_vel)
 
