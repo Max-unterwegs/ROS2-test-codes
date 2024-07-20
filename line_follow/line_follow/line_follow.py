@@ -7,6 +7,8 @@ from rclpy.node import Node
 from cv_bridge import CvBridge, CvBridgeError
 from rclpy.qos import QoSProfile
 import math
+import time
+import threading
 bridge = CvBridge()  # 转换为ros2的消息类型(imgmsg)的工具
 import numpy as np
 import time
@@ -21,6 +23,7 @@ class LineFollower(Node):
     self.angleBuffer = []
     self.maxmax = 0.0
     self.max_detect_level = 0.0
+    self.max_brightness = 0.0
     self.colorLower = None
     self.colorUpper = None
     self.declare_parameter("~h_min", 19)
@@ -35,6 +38,7 @@ class LineFollower(Node):
     self.declare_parameter("~z_speed", 90)
     self.declare_parameter("~zwx_10", 5)
     self.declare_parameter("~err_grenze_da", 7)
+    self.declare_parameter("~brightness", 23)
     self.h_min = self.get_parameter("~h_min").get_parameter_value().integer_value
     self.h_max = self.get_parameter("~h_max").get_parameter_value().integer_value
     self.s_min = self.get_parameter("~s_min").get_parameter_value().integer_value
@@ -47,6 +51,7 @@ class LineFollower(Node):
     self.z_speed = self.get_parameter("~z_speed").get_parameter_value().integer_value
     self.zwx_10 = self.get_parameter("~zwx_10").get_parameter_value().integer_value
     self.err_grenze_da = self.get_parameter("~err_grenze_da").get_parameter_value().integer_value
+    self.brightness = self.get_parameter("~brightness").get_parameter_value().integer_value
     cv2.namedWindow("Parameters")
     #cv2.resizeWindow("Parameters", 640, 320);
     cv2.moveWindow("Parameters",20,20)
@@ -62,12 +67,14 @@ class LineFollower(Node):
     cv2.createTrackbar("z_speed", "Parameters", self.z_speed , 200, self.set_z_speed)
     cv2.createTrackbar("zwx_10", "Parameters", self.zwx_10 , 10, self.set_zwx_10)
     cv2.createTrackbar("err_grenze_da", "Parameters", self.err_grenze_da , 10, self.set_err_grenze_da)
+    cv2.createTrackbar("brightness", "Parameters", self.brightness , 100, self.set_brightness)
     self.control_run = self.create_subscription(Float64,'/control/max_vel',self.con_run,QoSProfile(depth=1))
     self.control_detect_level_run = self.create_subscription(Float64,'/control/detect_level/max_vel',self.con_detect_level_run,QoSProfile(depth=1))
+    self.control_brightness_run = self.create_subscription(Float64,'/brightness',self.con_brightness_run,QoSProfile(depth=1))  # //*用于接收亮度值进而控制速度
     #self.parking_run = self.create_subscription(UInt8,'/control/parking',self.con_parking_run,QoSProfile(depth=1))
     self.nofindcounter=0
     self.maxmax = 0.12
-    self.status_i=0
+    self.status_i=0 # //*用于摆头的计数
     self.status_s=[1 ,2 ,2 ,1]
     #self.parkingstart=0
   # def con_parking_run(self, msg):
@@ -80,7 +87,9 @@ class LineFollower(Node):
   def con_detect_level_run(self, msg):
     self.get_logger().info("detectlevel_vel:%lf" % (self.max_detect_level))
     self.max_detect_level = msg.data
-
+  def con_brightness_run(self, msg):
+    # self.get_logger().info("brightness:%lf" % (self.max_brightness))
+    self.max_brightness = msg.data
   def set_h_min(self, pos):
     self.h_min = pos
   def set_h_max(self, pos):
@@ -105,11 +114,13 @@ class LineFollower(Node):
      self.zwx_10=pos
   def set_err_grenze_da(self, pos):
     self.err_grenze_da=pos
+  def set_brightness(self, pos):
+    self.brightness = pos
   def image_callback(self, msg):
     global bridge
     np_arr = np.frombuffer(msg.data,np.uint8) 
     self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-    image = np.copy(self.cv_image)
+    image = np.copy(self.cv_image) # //* 可能会比较费时
     #image = bridge.imgmsg_to_cv2(msg, 'bgr8')
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     self.colorLower = (self.h_min, self.s_min, self.v_min)
@@ -132,7 +143,7 @@ class LineFollower(Node):
       # print(M)
       self.twist.linear.x = float(self.x_speed_10)/10
       # self.get_logger().info("!!!!!!!!!!!!!!!!!!!!!!!%lf" %(self.maxmax))
-      if(self.maxmax > 0.05 and self.max_detect_level> 0.05):
+      if(self.maxmax > 0.05 and self.max_detect_level> 0.05 and self.max_brightness > self.brightness):  # //*当前光照强度小于设定值时，停止运动
         if(abs(err)>self.err_grenze):
           self.twist.angular.z = -float(err) / self.z_speed
         if(abs(err)>self.err_grenze_da):
@@ -140,6 +151,22 @@ class LineFollower(Node):
       else: 
          self.twist.angular.z = 0.0
          self.twist.linear.x = 0.0
+         if self.max_brightness < self.brightness and self.run == 1:
+            self.get_logger().info("亮度过低，检测为正在过隧道！")
+            #这是亮度过低进行的操作
+            # 1.直行
+            self.twist.angular.z = 0.0
+            self.twist.linear.x = 1.0
+            running_cmd_vel(self.running, self.twist, 2)
+            # 2.转弯
+            self.twist.angular.z = -1.57  # 1.57是90度,1.57 rad/s
+            self.twist.linear.x = 0.0    # 加上直行实现转弯
+            running_cmd_vel(self.running, self.twist, 2)
+            # 3.直行
+            self.twist.angular.z = 0.0
+            self.twist.linear.x = 1.0
+            running_cmd_vel(self.running, self.twist, 1)
+            
       self.nofindcounter = 0
       self.status_i=0
         #   self.angleBuffer.append(err)
@@ -215,7 +242,47 @@ class LineFollower(Node):
         hor= np.hstack(imgArray)
         ver = hor
     return ver
+  
+  def running(self, twist, stop_event):
+    while not stop_event.is_set():
+      #这里直接发布运动指令
+      self.cmd_vel_pub.publish(twist)
+      time.sleep(1)
+  
+  
 
+#这里声明一个线程事件，用于停止线程
+# stop_event = threading.Event()
+
+#这是一个继承自threading.Thread的类，用于实现线程的停止
+class StoppableThread(threading.Thread):
+    def __init__(self, target, *args, stop_event, **kwargs):
+        super().__init__(target=target, *args, **kwargs)
+        self.stop_event = stop_event
+
+    def stop(self):
+        self.stop_event.set()
+        
+    def start(self):
+        self.stop_event.clear()
+        super().start()
+
+# def running(Twist, sec):
+#   while not stop_event.is_set():
+#     #这里写你的代码
+#     time.sleep(0.1)
+
+#这是进程的启动函数
+def running_cmd_vel(function,twist,sec):
+    stop_event = threading.Event()  # Define the stop_event variable
+    t = StoppableThread(target=function, args=(twist, stop_event),stop_event=stop_event)
+    t.start()
+    time.sleep(sec)
+    if t.is_alive():
+        print("Stopping thread")
+        t.stop()
+    t.join()
+    print("Finished")  
 
 
 def main(args=None):
